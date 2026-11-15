@@ -1,0 +1,168 @@
+(window.DT_LANG = window.DT_LANG || {}).es = {
+  ui: {
+    listen: "Escuchar", start: "Empezamos", share: "Compartir la app", shareText: "Estoy practicando alemán con esta app. ¡Pruébala tú también!", copied: "Enlace copiado",
+    intro_h: "¿Te reconoces?", typical: "típico", settings: "Ajustes", level: "Nivel",
+    lvl1: "Principiante (A1)", lvl2: "Básico (A2)", lvl3: "Intermedio (B1)",
+    mixed: "Entrenamiento mixto", vocab: "Vocabulario", plan: "Tu plan de entrenamiento", allMods: "Otros ejercicios", inYourLang: "En español",
+    order: "Pon las partes en el orden correcto.", check: "Comprobar", fill: "¿Qué falta?", pick: "¿Qué frase es correcta?",
+    genusQ: "¿der, die o das?", hear: "¿Qué palabra oyes?", correct: "¡Correcto!", wrong: "No del todo.", next: "Siguiente", back: "Atrás",
+    done: "¡Muy bien!", score: "{n} de {m} correctas", again: "Otra vez",
+    cat_n: "Sustantivos", cat_v: "Verbos", cat_a: "Adjetivos", cat_at: "Palabras austriacas", vList: "Lista", vQuiz: "Quiz", inGermany: "en Alemania:", search: "Buscar …",
+    changeLang: "Cambiar de idioma", dark: "Modo claro / oscuro", reset: "Borrar el progreso",
+    privacy: "La app guarda tu progreso solo en tu dispositivo. De forma anónima solo se cuenta cuántas veces y para qué idioma se usa la app. Sin nombres, sin cookies.",
+    q_h: "Cuéntanos algo sobre tu idioma", q_sub: "Responde a unas preguntas y recibirás los ejercicios adecuados.", yes: "Sí", no: "No",
+    myLang: "¿Cómo se llama tu idioma? (opcional)",
+    mixedTyp: "Entrenar los errores típicos", mixedAll: "Todo junto", feedback: "Enviar un comentario", report: "Avisar de un error", cat_w: "Palabras pequeñas", ffQ: "¿Qué significa esta palabra?", sortFreq: "Por frecuencia", sortAbc: "A–Z",
+    full: "Pantalla completa", l2hint: "¿Sabes otro idioma mejor que el alemán? Muchos errores vienen también de ese idioma. Prueba además los ejercicios pensados para él."
+  },
+  mod: {
+    v2: { t: "El verbo en segunda posición", r: "En la oración principal, el verbo está siempre en segunda posición. Si la frase empieza con otra palabra, el sujeto va después del verbo: {Heute gehe ich.}", n: "«Hoy yo voy» se convierte en {Heute gehe ich}: primero el verbo, después el sujeto." },
+    klammer: { t: "El paréntesis verbal", r: "La segunda parte del verbo va al final del todo: {Ich habe … gesehen. Ich kann … kommen. Ich rufe … an.}", n: "En español, «he visto» va junto. En alemán, todo lo demás se mete en medio: {Ich habe gestern einen Film gesehen}." },
+    neben: { t: "Oración subordinada: verbo al final", r: "Después de {weil, dass, wenn, ob}, el verbo va al final: {…, weil ich krank bin.}", n: "«…, porque estoy enfermo»: en español el verbo se queda delante, en alemán se va al final." },
+    genus: { t: "¿der, die o das?", r: "Cada sustantivo tiene un género. Aprende cada sustantivo con su artículo. Los colores ayudan: {der} = azul, {die} = rojo, {das} = verde.", n: "El alemán tiene tres géneros y muchas veces no coinciden con el español: «el sol» es {die Sonne}, «la luna» es {der Mond}, «el problema» es {das Problem}." },
+    kasus: { t: "Acusativo y dativo", r: "El artículo muestra la función de la palabra en la frase: {den Mann sehen} (acusativo), {dem Mann helfen} (dativo). Después de {in, auf, an}: ¿Adónde? → acusativo. ¿Dónde? → dativo.", n: "En español el artículo no cambia («veo al hombre», «ayudo al hombre»). En alemán sí: {den} o {dem}." },
+    artikel: { t: "Artículo: ¿der, ein o nada?", r: "Nuevo o desconocido: {ein, eine}. Conocido o único: {der, die, das}. Sin artículo: profesiones ({Sie ist Lehrerin}), materias en general ({Ich trinke Kaffee}), casi todos los países y ciudades.", n: "Cuidado con las generalizaciones: «me gusta el café» es {Ich mag Kaffee}, sin artículo. Y «el señor Huber» es simplemente {Herr Huber}." },
+    subjekt: { t: "Nunca sin sujeto", r: "La frase alemana necesita siempre un sujeto: {ich, du, er, sie, wir} … o {es}: {Es regnet.}", n: "En español, «yo, tú, él» casi siempre se omiten («Voy a casa», «Llueve»). En alemán nunca." },
+    kopula: { t: "Nunca sin «sein»", r: "La frase alemana necesita siempre un verbo. Correcto: {Das Haus ist groß.}", n: "«Ser» y «estar» son en alemán un solo verbo: {sein}. {Ich bin Lehrer. Ich bin müde.}" },
+    negation: { t: "Negación: nicht, kein, nie", r: "En la frase hay una sola negación: {Ich habe nichts gesehen.} Delante de un sustantivo se usa {kein}. {nicht} va después del verbo.", n: "«No he visto nada» tiene dos negaciones, el alemán solo una. Y «no voy» es {Ich gehe nicht}: {nicht} después del verbo, no antes." },
+    haben: { t: "¿haben o sein?", r: "Posesión: {Ich habe ein Auto.} Edad: {Ich bin 25 Jahre alt.} Sensaciones: {Ich habe Hunger. Mir ist kalt.}", n: "«Tengo 30 años» en alemán es {Ich bin 30 Jahre alt}. «Tengo frío» es {Mir ist kalt}, pero «tengo hambre» sigue siendo {Ich habe Hunger}." },
+    plural: { t: "El plural después de los números", r: "Después de {zwei, drei, viele} …, el sustantivo va en plural: {zwei Bücher, viele Kinder}." },
+    verbform: { t: "Las terminaciones del verbo", r: "El verbo concuerda con la persona: {ich wohne, du wohnst, er wohnt, wir wohnen, ihr wohnt, sie wohnen}." },
+    praep: { t: "Preposiciones", r: "¿Adónde? {nach Graz, in die Schule, zum Arzt.} ¿Dónde? {in Graz, in der Schule, beim Arzt.} Aprende los verbos con su preposición: {warten auf}.", n: "«En» puede ser {in}, {auf} o {an}, y «esperar el autobús» es {auf den Bus warten}. Con personas no hay «a»: «veo a María» es {Ich sehe Maria}." },
+    perfekt: { t: "Perfekt: ¿haben o sein?", r: "Casi todos los verbos forman el Perfekt con {haben}. Movimiento hacia un destino y cambio de estado piden {sein} ({ich bin gegangen, gekommen, geblieben, aufgestanden}).", n: "En español siempre se usa «haber» (he ido, he venido). En alemán, con los verbos de movimiento hay que usar {sein}: {Ich bin gegangen}." },
+    adjektiv: { t: "El adjetivo delante del sustantivo", r: "El adjetivo va delante del sustantivo y lleva una terminación: {ein gutes Buch, der alte Mann}.", n: "En español el adjetivo suele ir detrás («un coche nuevo»). En alemán siempre delante: {ein neues Auto}." },
+    tekamolo: { t: "Primero el tiempo, luego el lugar", r: "¿Cuándo? va antes de ¿Dónde? y ¿Adónde?: {Ich gehe heute ins Kino.} Orden habitual: cuándo – cómo – dónde.", n: "«Voy al cine hoy» se convierte en {Ich gehe heute ins Kino}." },
+    schrift: { t: "La mayúscula", r: "Todos los sustantivos se escriben con mayúscula: {der Hund, das Wasser}. También el {Sie} de cortesía.", n: "Los días y los meses también son sustantivos: {Montag}, {Jänner}. Y solo hay un signo de interrogación, al final." },
+    laute: { t: "Escucha: ¿larga o breve? ¿u o ü?", r: "Las vocales largas y breves cambian el significado: {Staat – Stadt}. También importan {ü} y {ö}: {schon – schön}.", n: "En español no hay vocales largas ni {ü}, {ö}. Ojo también con {sp} y {st} al principio: {sprechen}, {Stadt}, sin «e» delante. Y la {h} se pronuncia: {Haus}." },
+    pronomen: { t: "¿er, sie o es?", r: "El pronombre sigue al artículo: {der} → {er}, {die} → {sie}, {das} → {es}. También vale para las cosas: {Der Schlüssel? Er liegt hier.}", n: "Cuenta el género alemán, no el español: «la llave» es {der Schlüssel}, por lo tanto {er}." },
+    anrede: { t: "¿du o Sie?", r: "A los desconocidos, a las personas mayores y en las oficinas públicas se les dice {Sie} (siempre con mayúscula). A los amigos, a los niños y en familia se dice {du}.", n: "Como «usted» y «tú», pero en Austria el {Sie} se usa mucho más que el «usted» en España. El verbo con {Sie} tiene la forma de {sie} (ellos): {Haben Sie Zeit?}" },
+    ff: { t: "Falsos amigos", r: "Estas palabras parecen españolas, pero significan otra cosa." }
+  },
+  q: {
+    q1: "¿Tiene tu idioma una palabra separada como {der, die, das} delante del sustantivo?",
+    q2: "¿Tienen género los sustantivos en tu idioma (por ejemplo, masculino y femenino)?",
+    q3: "¿El verbo suele estar al final de la frase en tu idioma?",
+    q4: "¿Se pueden omitir a menudo «yo», «tú», «él» en tu idioma?",
+    q5: "¿Se dice en tu idioma «Él profesor», sin «es»?",
+    q6: "¿Se dice en tu idioma literalmente «No he visto nada» (dos negaciones)?",
+    q7: "¿Tiene tu idioma un verbo como «tener» («Tengo un coche»)?",
+    q8: "¿Se dice en tu idioma literalmente «dos libro» (singular después de los números)?",
+    q9: "¿Cambia el verbo según la persona (voy, vas, va)?",
+    q10: "¿Van palabras como «en», «con», «sobre» delante del sustantivo en tu idioma?",
+    q11: "¿Va el adjetivo detrás del sustantivo en tu idioma («casa grande»)?",
+    q12: "¿Se escribe tu idioma con el alfabeto latino (a, b, c)?",
+    q13: "¿Tiene tu idioma los sonidos {ü} y {ö}?",
+    q14: "¿Tienen casos los sustantivos en tu idioma (una terminación distinta para sujeto y objeto)?"
+  },
+  intro: {
+    h: "Alemán para hispanohablantes",
+    p: "En Viena se cena a las seis, el café se toma sentado y con calma, y nadie entiende por qué dices «Espanien» y «estudieren». El vocabulario se aprende; lo que cuesta es que el alemán exige siempre el sujeto, manda el verbo al final y ha decidido que el sol es femenino y la luna masculina. Estos son los errores que nos delatan.",
+    e: [
+      { x: "Heute ich gehe ins Kino.", ok: "Heute gehe ich ins Kino.", c: "«Hoy yo voy» – en alemán el verbo se queda en segunda posición." },
+      { x: "Gehe nach Hause.", ok: "Ich gehe nach Hause.", c: "«Voy a casa» – en alemán {ich} es obligatorio." },
+      { x: "Ich habe 30 Jahre.", ok: "Ich bin 30 Jahre alt.", c: "«Tengo 30 años» – en alemán los años no se «tienen»." },
+      { x: "Ich habe ein Auto neu.", ok: "Ich habe ein neues Auto.", c: "«Un coche nuevo» – en alemán el adjetivo va delante." },
+      { x: "Ich habe nicht nichts gesehen.", ok: "Ich habe nichts gesehen.", c: "«No he visto nada» – con una negación basta." },
+      { x: "Ich nicht gehe.", ok: "Ich gehe nicht.", c: "«No voy» – {nicht} va después del verbo." },
+      { x: "Ich habe nach Wien gekommen.", ok: "Ich bin nach Wien gekommen.", c: "«He venido» – con movimiento, el alemán usa {sein}." },
+      { x: "Ich bleibe zu Hause, weil ich bin müde.", ok: "Ich bleibe zu Hause, weil ich müde bin.", c: "Después de {weil}, el verbo va al final." }
+    ]
+  },
+  ff: [
+    { de: "die Karte", ok: "mapa, tarjeta, entrada", no: "carta", c: "«La carta» (que se envía) es {der Brief}." },
+    { de: "das Gymnasium", ok: "instituto de secundaria", no: "gimnasio", c: "«El gimnasio» es {das Fitnessstudio}." },
+    { de: "das Regal", ok: "estantería", no: "regalo", c: "«El regalo» es {das Geschenk}." },
+    { de: "die Firma", ok: "empresa", no: "firma", c: "«La firma» es {die Unterschrift}." },
+    { de: "der Kompromiss", ok: "acuerdo con concesiones", no: "compromiso", c: "«El compromiso» (obligación) es {die Verpflichtung}." },
+    { de: "die Mappe", ok: "carpeta", no: "mapa", c: "«El mapa» es {die Landkarte}." },
+    { de: "die Art", ok: "manera, tipo", no: "arte", c: "«El arte» es {die Kunst}." },
+    { de: "das Tablett", ok: "bandeja", no: "tableta", c: "«La tableta» (pastilla) es {die Tablette}." }
+  ],
+  s: {
+    v2_1: "Hoy voy al Prater.", v2_2: "El sábado vamos a Graz.", v2_3: "Ahora me tomo un café.", v2_4: "Mañana viene mi hermana a Viena.", v2_5: "En Viena mucha gente va en metro.",
+    v2_6: "Después del trabajo voy a hacer la compra.", v2_7: "En enero hace mucho frío.", v2_8: "Por desgracia, hoy no tengo tiempo.", v2_9: "Quizá podamos vernos el fin de semana.", v2_10: "Mi familia vive en Ottakring desde hace dos años.",
+    v2_11: "Hoy no trabajo.", v2_12: "Por la noche vemos una película.", v2_13: "Luego me voy a casa.", v2_14: "El fin de semana visitamos a mis abuelos.", v2_15: "A las siete desayuna la familia.", v2_16: "En verano muchos vieneses van al lago Neusiedl.", v2_17: "Por eso hoy tengo que trabajar más tiempo.", v2_18: "A pesar de todo, llegó puntual.",
+    tk_1: "Hoy voy al cine.", tk_2: "El domingo vamos a Schönbrunn.", tk_3: "Mañana voy en tren a Salzburgo.", tk_4: "Trabaja en un hospital desde mayo.", tk_5: "Va al trabajo en bici todos los días.", tk_6: "Quedamos a las ocho delante de la catedral de San Esteban.",
+    tk_7: "Hoy estoy en casa.", tk_8: "Por la noche cenamos en un restaurante.", tk_9: "La semana que viene vuela a Berlín.", tk_10: "Los niños juegan por la tarde en el parque.", tk_11: "Todos los sábados voy al mercado con mi amiga.", tk_12: "Ayer fue a Linz en coche.",
+    kl_1: "Ayer vi una película.", kl_2: "Hoy no puedo ir.", kl_3: "Ahora tenemos que irnos a casa.", kl_4: "El tren sale a las nueve.", kl_5: "Te llamo por la noche.", kl_6: "Vino a Viena el año pasado.",
+    kl_7: "Me levanto todos los días a las seis.", kl_8: "¿Ya has rellenado el formulario?", kl_9: "Los sábados hacemos la compra en el Naschmarkt.", kl_10: "El año que viene me gustaría hacer el examen.", kl_11: "El piso se reforma la semana que viene.", kl_12: "¿Puedes recogerme mañana en la estación?",
+    kl_13: "Me gustaría tomar un té.", kl_14: "Hemos comprado pan.", kl_15: "¿Puedes ayudarme?", kl_16: "El curso empieza a las nueve.", kl_17: "He perdido mi llave.", kl_18: "Tienes que firmar el formulario.", kl_19: "Cierra la ventana.", kl_20: "Me he apuntado al curso.", kl_21: "Me levanto a las siete.", kl_22: "Hoy hacemos la compra.", kl_23: "El autobús llega a las ocho.",
+    nb_1: "Me quedo en casa porque estoy enfermo/enferma.", nb_2: "Sé que estás cansado/cansada.", nb_3: "Aprendo alemán porque me gustaría trabajar en Viena.", nb_4: "Salimos a pasear cuando hace sol.", nb_5: "Creo que hoy no viene.",
+    nb_6: "Pregunta si el autobús va a la estación central.", nb_7: "Te llamo cuando esté en casa.", nb_8: "No sé si ha leído el libro.", nb_9: "Ha dicho que mañana llega más tarde.", nb_10: "Aunque llueve, vamos al Prater.",
+    nb_11: "No voy porque no tengo tiempo.", nb_12: "Espero que estés bien.", nb_13: "Dice que vive en Favoriten.", nb_14: "Estoy cansado/cansada porque he dormido mal.", nb_15: "¿Sabes cuándo sale el tren?", nb_16: "Nos quedamos en casa cuando llueve.", nb_17: "He oído que ella ha encontrado un trabajo nuevo.", nb_18: "¿Puedes decirme dónde puedo comprar un billete?",
+    ka_1: "Veo al hombre.", ka_2: "Ayudo a la señora.", ka_3: "Este es mi hermano.", ka_4: "Le doy una manzana al niño.", ka_5: "Vamos al parque.", ka_6: "El libro está sobre la mesa.",
+    ka_7: "Pongo el libro sobre la mesa.", ka_8: "Voy en tranvía.", ka_9: "El regalo es para mi madre.", ka_10: "Me lavo las manos.", ka_11: "Tengo muchas ganas de que llegue el fin de semana.", ka_12: "Vive con sus padres.",
+    ka_13: "Tengo un perro.", ka_14: "Compro el pan.", ka_15: "Te doy las gracias por la ayuda.", ka_16: "¿Puedes ayudarme?", ka_17: "Visito a mi amigo.", ka_18: "El bolso es de la señora.", ka_19: "Vengo de la escuela.", ka_20: "Mete la botella en el frigorífico.", ka_21: "La silla está al lado de la puerta.",
+    ar_1: "Tengo un hermano.", ar_2: "Esta es la catedral de San Esteban.", ar_3: "Es profesora.", ar_4: "Me gusta tomar café.", ar_5: "Brilla el sol.", ar_6: "Necesito un móvil nuevo.",
+    ar_7: "¿Dónde está la estación de metro más cercana?", ar_8: "Voy a la escuela.", ar_9: "¿Tienes tiempo?", ar_10: "Es de Turquía.", ar_11: "Vivo en Austria.", ar_12: "Ayer vi una película. La película era muy buena.",
+    ar_13: "Esto es un libro.", ar_14: "Soy estudiante.", ar_15: "Tenemos hambre.", ar_16: "Voy a Suiza.", ar_17: "Hoy la luna brilla mucho.", ar_18: "Es un buen médico.", ar_19: "Hablo alemán.", ar_20: "El Danubio pasa por Viena.", ar_21: "Le gusta jugar al fútbol.",
+    su_1: "Me voy a casa.", su_2: "Llueve.", su_3: "¿Cómo te llamas?", su_4: "Hoy hace frío.", su_5: "Estamos cansados.", su_6: "Ya es tarde.", su_7: "¿Vienes mañana?", su_8: "Aquí hay muchos cafés.",
+    su_9: "Estoy cansado/cansada.", su_10: "¿Dónde vives?", su_11: "Nieva.", su_12: "¿Cómo estás?", su_13: "Mañana no trabajo.", su_14: "Creo que está enfermo.",
+    ko_1: "La casa es grande.", ko_2: "Soy estudiante.", ko_3: "Es mi hermana.", ko_4: "Estamos en Viena.", ko_5: "Mi padre es médico.", ko_6: "¿Dónde está la estación?", ko_7: "La comida está muy buena.", ko_8: "¿Quién es?",
+    ko_9: "Hace buen tiempo.", ko_10: "Eres simpático/simpática.", ko_11: "Mis padres están en Graz.", ko_12: "No es ningún problema.", ko_13: "Hoy es lunes.",
+    ng_1: "No tengo coche.", ng_2: "Hoy no voy.", ng_3: "No he visto nada.", ng_4: "Nunca he estado en Salzburgo.", ng_5: "No ha llamado nadie.", ng_6: "No voy.", ng_7: "No es una buena idea.", ng_8: "Nunca dice nada.", ng_9: "No compro el coche.",
+    ng_10: "No tengo tiempo.", ng_11: "Eso no es correcto.", ng_12: "No entiendo nada.", ng_13: "No tenemos hambre.", ng_14: "Aquí no conozco a nadie.", ng_15: "Nunca ha comido un escalope empanado.",
+    hb_1: "Tengo 25 años.", hb_2: "Tengo un coche.", hb_3: "Tengo hambre.", hb_4: "Tengo frío.", hb_5: "Tenemos dos hijos.", hb_6: "No tengo tiempo.", hb_7: "¿Tienes hermanos?", hb_8: "¿Cuántos años tienes?", hb_9: "Les tiene miedo a los perros.", hb_10: "Tienes razón.",
+    hb_11: "Tengo sed.", hb_12: "Mi hermano tiene diez años.", hb_13: "Tengo calor.", hb_14: "¿Tiene usted un documento de identidad?", hb_15: "Me duele la cabeza.", hb_16: "Me apetece un café.",
+    pl_1: "Tengo dos hijos.", pl_2: "Sobre la mesa hay tres libros.", pl_3: "Necesitamos cuatro billetes.", pl_4: "El piso tiene tres habitaciones.", pl_5: "Compro cinco manzanas.", pl_6: "En Viena hay muchos cafés.", pl_7: "Habla tres idiomas.", pl_8: "Me quedo dos semanas en Viena.", pl_9: "Tiene muchos amigos.", pl_10: "Tengo algunas preguntas.",
+    pl_11: "Tengo dos hermanos.", pl_12: "Tenemos tres gatos.", pl_13: "El curso dura seis meses.", pl_14: "Necesito dos panecillos.", pl_15: "En la clase hay doce alumnos.", pl_16: "Ya ha visitado muchos países.",
+    vf_1: "Vivo en Viena.", vf_2: "Hablas bien alemán.", vf_3: "Es de Graz.", vf_4: "Aprendemos alemán.", vf_5: "Mi hermana va en tranvía todos los días.", vf_6: "Sois muy simpáticos.", vf_7: "Ayer estuve en la oficina.", vf_8: "A mi hermano le gusta leer libros.", vf_9: "¿Qué te gusta comer?", vf_10: "Los niños juegan en el parque.", vf_11: "¡Espere aquí, por favor!",
+    vf_12: "Me llamo Anna.", vf_13: "¿Dónde vives?", vf_14: "Somos de Viena.", vf_15: "Mi padre trabaja en un hotel.", vf_16: "¿Puedes ayudarme?", vf_17: "Él no sabe dónde vive ella.",
+    pr_1: "Voy a la escuela.", pr_2: "Voy a Graz.", pr_3: "Soy de Italia.", pr_4: "Voy en autobús.", pr_5: "Voy al médico.", pr_6: "Estoy en el médico.", pr_7: "¡Ven a mi casa!", pr_8: "Por la noche estoy en casa.", pr_9: "Ahora me voy a casa.", pr_10: "Espero el autobús.", pr_11: "Pienso mucho en mi familia.", pr_12: "Hablamos del tiempo.", pr_13: "El curso empieza el lunes.", pr_14: "El curso empieza a las ocho.",
+    pr_15: "Vivo en Viena.", pr_16: "Trabajo de lunes a viernes.", pr_17: "Vamos al cine.", pr_18: "Estamos en el cine.", pr_19: "Voy a casa de mi hermana.", pr_20: "El cuadro cuelga de la pared.", pr_21: "Me interesa la música.", pr_22: "Le tiene miedo al examen.", pr_23: "Aprendo alemán desde hace dos años.",
+    pf_1: "He venido a Viena.", pf_2: "He aprendido alemán.", pf_3: "Hemos ido al cine.", pf_4: "Ha escrito una carta.", pf_5: "Se ha quedado en casa.", pf_6: "¿Has dormido bien?", pf_7: "El tren ha llegado puntual.", pf_8: "Ayer trabajé mucho.", pf_9: "¿Cuándo te has levantado?", pf_10: "Hemos ido a Italia en coche.",
+    pf_11: "Me he tomado un café.", pf_12: "Se ha ido a casa.", pf_13: "Hemos esperado mucho tiempo.", pf_14: "Me he despertado a las siete.", pf_15: "Ha leído el libro.", pf_16: "¿Qué ha pasado?", pf_17: "Los niños se han dormido enseguida.", pf_18: "He hecho transbordo en Linz.",
+    aj_1: "Es un buen libro.", aj_2: "Tengo un coche nuevo.", aj_3: "Es una buena película.", aj_4: "Tiene un piso bonito.", aj_5: "Me tomo un café pequeño.", aj_6: "El hombre mayor es mi abuelo.", aj_7: "Vivimos en una ciudad grande.", aj_8: "¡Que tengas un buen día!", aj_9: "El gato pequeño duerme.",
+    aj_10: "Es una ciudad bonita.", aj_11: "Bebo agua fría.", aj_12: "Tenemos un jardín grande.", aj_13: "Se compra un vestido rojo.", aj_14: "Mi nuevo vecino es muy simpático.", aj_15: "¿Dónde está mi jersey azul?", aj_16: "Es un perro pequeño.", aj_17: "Busco un piso barato.", aj_18: "Tiene una bicicleta nueva.", aj_19: "Con el coche viejo ya no vamos.", aj_20: "Trabaja en una oficina pequeña.",
+    sc_1: "El perro está en el jardín.", sc_2: "Bebo agua.", sc_3: "Hoy cocina mi madre.", sc_4: "Viena es una ciudad bonita.", sc_5: "El lunes tengo una cita.", sc_6: "¿Puede ayudarme, por favor?",
+    sc_7: "El niño juega con la pelota.", sc_8: "Tengo un hermano y una hermana.", sc_9: "Vamos a Linz en tren.", sc_10: "La comida está rica.",
+    pn_1: "Mi madre está enferma. Está durmiendo.", pn_2: "Este es mi hermano. Se llama Ali.", pn_3: "El niño llora. Está cansado.", pn_4: "¿Dónde está la llave? Está sobre la mesa.", pn_5: "El bolso es nuevo. Fue caro.", pn_6: "Mi padre trabaja mucho. Es cocinero.",
+    du_1: "¿Cómo está usted, señor Huber?", du_2: "Señora Novak, ¿tiene usted tiempo?", du_3: "Perdone, ¿puede ayudarme?", du_4: "Doctor, le doy las gracias.", du_5: "Mamá, ¿puedes ayudarme?", du_6: "Señora Berger, ¿es este su bolso?",
+    tk_13: "Mañana vamos a Graz.", tk_14: "El viernes vuelve de Graz.", tk_15: "Mi hermano trabaja en Viena desde hace un año.", tk_16: "El verano pasado fuimos a Croacia en tren.",
+    su_15: "Él vive en Viena.", su_16: "Aquí se está muy bien.", ko_14: "Mi hermana es profesora.", ko_15: "El café está muy caliente.", ko_16: "La habitación es pequeña pero bonita.", ng_16: "No tomo café.",
+    sc_11: "El gato bebe leche.", sc_12: "Mi hermano vive en Viena.", sc_13: "Por la noche leo un libro.", sc_14: "Señora Berger, ¡pase, por favor!", sc_15: "En verano vamos a Italia.", sc_16: "Necesito una cita con el médico.",
+    pn_7: "Esta es mi hermana. Vive en Graz.", pn_8: "El coche es viejo. Pero funciona bien.", pn_9: "El café está muy caliente. Está rico.", pn_10: "El piso es pequeño. Solo tiene una habitación.", pn_11: "El libro es interesante. Me gusta leerlo.", pn_12: "¿Dónde está mi móvil? Está en la cocina.", pn_13: "El tren lleva retraso. Llega a las nueve.", pn_14: "La sopa está fría. No está rica.", pn_15: "La película fue larga. La vi ayer.", pn_16: "Ha llegado la factura. La pago mañana.",
+    du_7: "Papá, ¿vienes esta noche?", du_8: "Señor Maier, ¿de dónde es usted?", du_9: "Anna, ¿cuántos años tienes?", du_10: "¡Buenos días! ¿Qué desea tomar?", du_11: "Niños, ¿venís a comer, por favor?", du_12: "Señor Huber, ¿es este su coche?", du_13: "Lisa, ¿es este tu móvil?", du_14: "Señora Novak, la llamo mañana.", du_15: "Señor Berger, me gustaría preguntarle una cosa.", du_16: "Abuelo, te ayudo con mucho gusto."
+  },
+  v: {
+    Mann: "hombre; marido", Frau: "mujer; esposa", Kind: "niño", Mutter: "madre", Vater: "padre", Bruder: "hermano", Schwester: "hermana", Freund: "amigo", Familie: "familia", Name: "nombre",
+    Haus: "casa", Wohnung: "piso, apartamento", Zimmer: "habitación", Küche: "cocina", Tür: "puerta", Fenster: "ventana", Tisch: "mesa", Bett: "cama", Schlüssel: "llave", Stadt: "ciudad",
+    Straße: "calle", Bahnhof: "estación de tren", "U-Bahn": "metro", Bus: "autobús", Zug: "tren", Auto: "coche", Fahrrad: "bicicleta", Ticket: "billete, entrada", Arbeit: "trabajo", Schule: "escuela",
+    Kurs: "curso", Prüfung: "examen", Termin: "cita", Formular: "formulario", Ausweis: "documento de identidad", Amt: "oficina pública", Unterschrift: "firma", Adresse: "dirección", Arzt: "médico", Spital: "hospital",
+    Apotheke: "farmacia", Medikament: "medicamento", Geld: "dinero", Geschäft: "tienda", Markt: "mercado", Rechnung: "factura, cuenta", Brot: "pan", Wasser: "agua", Milch: "leche", Kaffee: "café",
+    Apfel: "manzana", Fleisch: "carne", Gemüse: "verdura", Ei: "huevo", Käse: "queso", Tag: "día", Woche: "semana", Monat: "mes", Jahr: "año", Uhr: "reloj; hora",
+    Zeit: "tiempo", Morgen: "mañana (parte del día)", Abend: "tarde, noche", Nacht: "noche", Wetter: "tiempo (meteorológico)", Sonne: "sol", Regen: "lluvia", Buch: "libro", Handy: "móvil", Sprache: "idioma, lengua",
+    Wort: "palabra", Frage: "pregunta", Antwort: "respuesta", Problem: "problema", Hilfe: "ayuda",
+    sein: "ser, estar", haben: "tener; haber", gehen: "ir (a pie)", kommen: "venir", fahren: "ir (en vehículo), conducir", machen: "hacer", arbeiten: "trabajar", lernen: "aprender, estudiar", sprechen: "hablar", verstehen: "entender",
+    essen: "comer", trinken: "beber", kaufen: "comprar", bezahlen: "pagar", wohnen: "vivir (residir)", schlafen: "dormir", sehen: "ver", hören: "oír, escuchar", lesen: "leer", schreiben: "escribir",
+    fragen: "preguntar", helfen: "ayudar", brauchen: "necesitar", suchen: "buscar", finden: "encontrar", geben: "dar", nehmen: "tomar, coger", warten: "esperar", anrufen: "llamar (por teléfono)", aufstehen: "levantarse",
+    gut: "bueno", schlecht: "malo", groß: "grande; alto", klein: "pequeño", neu: "nuevo", alt: "viejo", schön: "bonito", teuer: "caro", billig: "barato", kalt: "frío",
+    warm: "caliente, cálido", müde: "cansado", krank: "enfermo", gesund: "sano", schnell: "rápido", langsam: "lento", wichtig: "importante", richtig: "correcto", falsch: "incorrecto, falso", schwer: "pesado; difícil",
+    Jänner: "enero", Sackerl: "bolsa", Paradeiser: "tomate", Erdapfel: "patata", Marille: "albaricoque", Topfen: "requesón, queso fresco", Semmel: "panecillo", Schlagobers: "nata montada", Sessel: "silla", Kasten: "armario",
+    Stiege: "escalera", Mistkübel: "cubo de basura", Bim: "tranvía (coloquial)", Matura: "bachillerato (examen final)", Faschierte: "carne picada", Palatschinke: "crep", Jause: "merienda, tentempié", Kassa: "caja", Kaffeehaus: "café (local)", heuer: "este año",
+    "Servus!": "¡Hola! / ¡Adiós!", "Grüß Gott!": "¡Buenos días!",
+    Hund: "perro", Katze: "gato", Garten: "jardín", Park: "parque", Kino: "cine", Film: "película", Brief: "carta", Geschenk: "regalo", Eltern: "padres", Leute: "gente", Sohn: "hijo", Tochter: "hija",
+    Nachbar: "vecino", Kollege: "compañero de trabajo", Chef: "jefe", Lehrer: "profesor", Schüler: "alumno", Mensch: "persona, ser humano", Büro: "oficina", Hotel: "hotel", Restaurant: "restaurante", Supermarkt: "supermercado", Bank: "banco", Post: "correos",
+    Polizei: "policía", Platz: "plaza; sitio", Haltestelle: "parada", Flughafen: "aeropuerto", Land: "país", Berg: "montaña", Tasche: "bolso, bolsa", Flasche: "botella", Glas: "vaso; vidrio", Kühlschrank: "frigorífico", Bild: "cuadro, imagen", Kleid: "vestido",
+    Hose: "pantalón", Schuh: "zapato", Jacke: "chaqueta", Tee: "té", Bier: "cerveza", Saft: "zumo", Zucker: "azúcar", Salz: "sal", Obst: "fruta", Suppe: "sopa", Kuchen: "pastel, tarta", Frühstück: "desayuno",
+    Hunger: "hambre", Durst: "sed", Kopf: "cabeza", Hand: "mano", Fuß: "pie", Auge: "ojo", Zahn: "diente", Wochenende: "fin de semana", Sommer: "verano", Winter: "invierno", Stunde: "hora (60 minutos)", Preis: "precio",
+    Urlaub: "vacaciones", Geburtstag: "cumpleaños", Vertrag: "contrato", Miete: "alquiler",
+    können: "poder, saber hacer", müssen: "tener que", wollen: "querer", wissen: "saber", kennen: "conocer", sagen: "decir", denken: "pensar", bleiben: "quedarse", bringen: "traer, llevar", kochen: "cocinar",
+    spielen: "jugar; tocar", beginnen: "empezar", vergessen: "olvidar", verlieren: "perder", besuchen: "visitar", unterschreiben: "firmar", einkaufen: "hacer la compra", kosten: "costar", heißen: "llamarse", mögen: "gustar (me gusta)",
+    lang: "largo", kurz: "corto", jung: "joven", nett: "simpático, amable", fertig: "listo, terminado", frei: "libre", voll: "lleno", leer: "vacío", sauber: "limpio", einfach: "sencillo, fácil", pünktlich: "puntual", glücklich: "feliz",
+    heute: "hoy", morgen: "mañana", gestern: "ayer", jetzt: "ahora", immer: "siempre", nie: "nunca", oft: "a menudo", hier: "aquí", dort: "allí", sehr: "muy", vielleicht: "quizá", leider: "por desgracia", bitte: "por favor; de nada", danke: "gracias"
+  }
+};
+
+/* --- 1.4.0 --- */
+window.DT_LANG.es.mod.anrede.r += " " + "A varias personas a las que tuteas se les dice {ihr}.";
+Object.assign(window.DT_LANG.es.s, { tk_17: "El sábado vamos al cine.", tk_18: "Él está ahora en la oficina.", nb_19: "Como porque tengo hambre.", nb_20: "Sé que tienes tiempo.", nb_21: "Dice que está cansado.", ka_22: "Veo el autobús.", ka_23: "Ella compra el libro.", ng_17: "No tengo dinero.", ng_18: "Eso no es caro.", hb_17: "Estoy cansado/cansada.", hb_18: "Él tiene dos hermanas.", hb_19: "Ella tiene 30 años.", hb_20: "¿Tienes hambre?", pl_17: "Tengo dos hermanas.", pl_18: "Tenemos dos coches.", pf_19: "He comprado pan.", pf_20: "Ella vino ayer.", du_17: "Max, ¿dónde vives?", du_18: "Señora Huber, ¿dónde vive usted?" });
+
+/* --- 1.5.0 --- */
+Object.assign(window.DT_LANG.es.s, { v2_19: "Mañana voy a la escuela.", v2_20: "Ahora aprendo alemán.", tk_19: "Mañana estoy en Graz.", tk_20: "Hoy comemos en casa.", kl_24: "Sé cocinar bien.", kl_25: "Queremos aprender alemán.", nb_22: "Voy si tengo tiempo.", nb_23: "Ella dice que tiene sed.", ka_24: "Necesito la llave.", ka_25: "Él tiene una hermana.", ar_22: "Esto es una mesa.", ar_23: "Vivo en Viena.", su_17: "Ella es de Polonia.", su_18: "Hoy hace calor.", ko_17: "El niño es pequeño.", ko_18: "Estamos en casa.", ng_19: "No tengo ningún hermano.", ng_20: "Hoy no trabajo.", hb_21: "Tenemos sed.", hb_22: "¿Cuántos años tiene usted?", pl_19: "Compro dos libros.", pl_20: "Ella tiene tres hermanos.", vf_18: "Vivimos en Viena.", vf_19: "Él aprende alemán.", pr_24: "Soy de Viena.", pr_25: "Voy en tren.", pf_21: "Hemos comido pizza.", pf_22: "Me he ido a casa.", aj_21: "Es una casa grande.", aj_22: "Ella tiene un gato pequeño.", sc_17: "Tengo un perro y un gato.", sc_18: "El pan está bueno.", pn_17: "Este es mi padre. Se llama Karl.", pn_18: "La casa es vieja. Es grande.", du_19: "Abuela, ¿tienes tiempo?", du_20: "Doctor, ¿tiene usted tiempo?" });
+
+/* --- 1.6.0 --- */
+Object.assign(window.DT_LANG.es.v, { "Oma": "abuela", "Opa": "abuelo", "Großeltern": "abuelos", "Geschwister": "hermanos (y hermanas)", "Mädchen": "niña, chica", "Pullover": "jersey", "Ball": "pelota, balón", "Pizza": "pizza", "Musik": "música", "Angst": "miedo", "See": "lago", "Verspätung": "retraso", "Teller": "plato", "Nase": "nariz", "Mund": "boca", "Ohr": "oreja", "Bein": "pierna", "Arm": "brazo", "Bauch": "barriga", "Rücken": "espalda", "Fieber": "fiebre", "Schmerz": "dolor", "Rezept": "receta", "Frühling": "primavera", "Herbst": "otoño", "Farbe": "color", "Pass": "pasaporte", "E-Mail": "correo electrónico", "Nummer": "número", "Telefon": "teléfono", "Mittagessen": "almuerzo, comida", "Abendessen": "cena", "fliegen": "volar", "aufmachen": "abrir", "zumachen": "cerrar", "waschen": "lavar", "schicken": "enviar", "bekommen": "recibir", "erklären": "explicar", "wiederholen": "repetir", "treffen": "encontrarse con, quedar", "abholen": "recoger", "ausfüllen": "rellenar", "umsteigen": "hacer transbordo", "schmecken": "saber bien, estar rico", "glauben": "creer", "leben": "vivir", "sitzen": "estar sentado", "heiß": "muy caliente", "laut": "ruidoso, alto (volumen)", "leise": "silencioso, en voz baja", "dunkel": "oscuro", "rot": "rojo", "blau": "azul", "grün": "verde", "gelb": "amarillo", "schwarz": "negro", "weiß": "blanco", "offen": "abierto", "geschlossen": "cerrado", "auch": "también", "noch": "todavía", "schon": "ya", "nur": "solo", "wieder": "otra vez", "gern": "con gusto (gustar hacer)", "zusammen": "juntos", "links": "a la izquierda", "rechts": "a la derecha", "geradeaus": "todo recto", "später": "más tarde", "früh": "temprano", "Bub": "niño, chico", "Karfiol": "coliflor", "Fisolen": "judías verdes", "Kukuruz": "maíz", "Zwetschke": "ciruela", "Ribisel": "grosella roja", "Trafik": "estanco", "Gehsteig": "acera", "Baba!": "¡Adiós!" });
+
+/* --- 1.8.0 --- */
+Object.assign(window.DT_LANG.es.ui, { about: "Creado con {Claude Fable 5.2} en noviembre de 2026. Concepción: {Thomas Kintaert}.", beta: "Versión beta: las traducciones aún no han sido revisadas por hablantes nativos. Puede haber errores, sobre todo en kurdo, árabe, persa, darí, albanés y chino." });

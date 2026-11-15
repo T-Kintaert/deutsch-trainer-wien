@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deutsch-Trainer Wien</title>
+<meta name="description" content="Deutsch üben: gezielt die Fehler vermeiden, die für Sprecherinnen und Sprecher deiner Muttersprache typisch sind.">
+<style>
+:root{--bg:#f7f4ee;--card:#fff;--ink:#1f2328;--mute:#667085;--line:#e4dfd5;--acc:#b3261e;--acc-ink:#fff;--ok:#1a7f4b;--okbg:#e3f5ea;--bad:#b42318;--badbg:#fde8e6;--m:#1d5fd1;--f:#c0263a;--n:#1a8a4a;--chip:#f0ece3;--l2:#dd6f00;--l2i:#1f1300;--sel:#1d5a9e;--sel-ink:#fff}
+[data-theme=dark]{--bg:#15171a;--card:#1f2226;--ink:#eceef1;--mute:#9aa4b2;--line:#33383f;--acc:#ef6b62;--acc-ink:#1a1010;--ok:#5fd39a;--okbg:#173527;--bad:#ff8a80;--badbg:#3d1c1a;--m:#7fb0ff;--f:#ff8b9a;--n:#6fdc9c;--chip:#2a2e34;--l2:#ffa040;--l2i:#1f1300;--sel:#8ab4ff;--sel-ink:#0d1b30}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Noto Sans Arabic",sans-serif}
+#app{max-width:680px;margin:0 auto;padding:12px 16px 72px}
+h1{font-size:1.7rem;line-height:1.2;margin:.2em 0}
+h2{font-size:1.25rem;margin:1.2em 0 .5em}
+p{margin:.5em 0}
+button{font:inherit;color:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 14px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--m);outline-offset:2px}
+button:disabled{opacity:.5;cursor:default}
+.btn{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600;padding:12px 20px}
+.btn2{font-weight:600}
+.link{border:0;background:none;color:var(--mute);padding:6px 4px;text-decoration:underline}
+.back{border:0;background:none;padding:6px 4px;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.arr{font-size:1.7em;line-height:.8;display:inline-block}
+[dir=rtl] .arr{transform:scaleX(-1)}
+.ib{border-radius:99px;padding:6px 9px;line-height:1.1;font-size:1.05rem}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.mute{color:var(--mute)}
+.small{font-size:.86rem}
+.center{text-align:center}
+.de{font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.grid.sm{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.langbtn{font-size:1.1rem;font-weight:600;padding:16px;text-align:center;-webkit-touch-callout:none;user-select:none}
+.grid.sm .langbtn{font-size:1rem;padding:11px;font-weight:500}
+.langbtn{transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease,background-color .15s ease}
+.langbtn:focus-visible{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc)}
+@media (hover:hover){.langbtn:hover{transform:translateY(-3px);border-color:var(--acc);box-shadow:0 8px 18px rgba(0,0,0,.16),inset 0 -3px 0 var(--acc)}}
+.langbtn:active{transform:translateY(0) scale(.98)}
+@media (prefers-reduced-motion:reduce){.langbtn{transition:none}.langbtn:hover{transform:none}}
+.ib svg{width:1.05em;height:1.05em;vertical-align:-.15em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.hint{border-inline-start:3px solid var(--acc);padding:6px 12px;margin:18px 0}
+.mod{display:flex;gap:12px;align-items:center;width:100%;text-align:start;margin:8px 0;padding:12px 14px}
+.mod .ic{font-size:1.5rem;width:36px;text-align:center;flex:none}
+.mod .tt{flex:1;min-width:0}
+.mod .tt b{display:block}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;background:var(--acc);color:var(--acc-ink);border-radius:99px;padding:2px 8px;margin-inline-start:6px;vertical-align:middle}
+.pct{font-weight:700;color:var(--ink);flex:none;font-size:.9rem}
+/* Liniennetz: Trainingsplan als Linie mit Stationen */
+.linecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 0 6px;margin:14px 0;--lc:var(--acc);--li:var(--acc-ink)}
+.linecard.l2{--lc:var(--l2);--li:var(--l2i)}
+.lhead{display:flex;align-items:center;gap:10px;padding:2px 14px;width:100%;min-height:40px;background:none;border:0;border-radius:0;text-align:start;font:inherit;color:inherit;margin:0}
+.lhead h2{margin:0;font-size:1rem;flex:1}
+.lbadge{min-width:30px;height:26px;padding:0 8px;border-radius:6px;background:var(--lc);color:var(--li);font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.chev{flex:none;color:var(--mute);font-size:.95rem}
+.stations{position:relative;margin-top:4px}
+.stations::before{content:"";position:absolute;inset-inline-start:24px;top:32px;bottom:32px;width:4px;background:var(--lc);border-radius:2px}
+.mod.st{position:relative;gap:12px;min-height:64px;margin:0;padding:8px 14px 8px 15px;border:0;border-radius:0;background:none;box-shadow:none}
+.mod.st:hover,.mod.st:focus-visible{background:var(--chip)}
+.dot{width:22px;height:22px;border-radius:50%;box-sizing:border-box;border:4px solid var(--lc);background:var(--card);flex:none;display:flex;align-items:center;justify-content:center;position:relative}
+.dot.part{background:radial-gradient(circle,var(--lc) 0 4px,var(--card) 5px)}
+.dot.done{background:var(--lc)}
+.dot svg{width:13px;height:13px;fill:none;stroke:var(--li);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.mi{width:40px;height:40px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;color:var(--c);background:var(--cb)}
+.mi svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.c0{--c:#1d5fbf;--cb:#e4edfb}.c1{--c:#7a3ea8;--cb:#f0e8f7}.c2{--c:#0e7490;--cb:#dff1f5}.c3{--c:#b45309;--cb:#fbeedd}.c4{--c:#0f7b4f;--cb:#e1f3eb}.c5{--c:#9d174d;--cb:#f9e6ef}
+[data-theme=dark] .c0{--c:#8ab4ff;--cb:#1c2a44}[data-theme=dark] .c1{--c:#cfa3f0;--cb:#2f2140}[data-theme=dark] .c2{--c:#6fd3e8;--cb:#16323a}[data-theme=dark] .c3{--c:#f3b267;--cb:#3a2a16}[data-theme=dark] .c4{--c:#6fd6a3;--cb:#16352a}[data-theme=dark] .c5{--c:#f39ac0;--cb:#3d1c2c}
+.l2row{padding:6px 14px 4px 15px}
+/* Info-Fenster */
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:12px}
+@media (min-width:560px){.ovl{align-items:center}}
+.modal{background:var(--card);color:var(--ink);border-radius:18px;max-width:480px;width:100%;max-height:calc(100vh - 24px);overflow:auto;padding:18px 18px 16px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.modal h2{margin:0;font-size:1.2rem}
+.mhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.note{background:var(--chip);border-radius:12px;padding:10px 12px;margin:10px 0}
+.mfoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pills button{border-radius:99px;padding:6px 14px}
+.pills button.on{background:var(--sel);color:var(--sel-ink);border-color:var(--sel)}
+.lvl{align-items:center}.lvl .lab{font-weight:600;margin-inline-end:4px}.lvl button{min-width:52px;font-weight:600}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 16px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.prompt{font-size:1.2rem;margin:8px 0 14px}
+.sent{font-size:1.3rem;font-weight:600;direction:ltr;text-align:left;margin:10px 0}
+.gap{display:inline-block;min-width:3em;border-bottom:3px solid var(--acc);text-align:center;color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;direction:ltr;min-height:52px;padding:8px;border-radius:12px}
+.chips.ans{background:var(--chip);border:2px dashed var(--line);margin-bottom:12px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-weight:600;font-size:1.05rem}
+.chip.fix{background:transparent;border-style:dashed;cursor:default}
+.opts{display:grid;gap:10px;margin:14px 0}
+.opts.h{grid-template-columns:repeat(3,1fr)}
+.opts.h2{grid-template-columns:1fr 1fr}
+.opt{font-size:1.1rem;font-weight:600;padding:14px;direction:ltr;text-align:center}
+.opt.l1{direction:inherit}
+.opt.good{background:var(--okbg);border-color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad)}
+.g-m{color:var(--m)}.g-f{color:var(--f)}.g-n{color:var(--n)}
+.opt.g-m{border-color:var(--m)}.opt.g-f{border-color:var(--f)}.opt.g-n{border-color:var(--n)}
+.fb{border-radius:14px;padding:14px;margin:14px 0}
+.fb.good{background:var(--okbg)}.fb.bad{background:var(--badbg)}
+.fb .sent{font-size:1.15rem;margin:6px 0}
+.spk{border-radius:99px;padding:6px 10px;line-height:1}
+.err{display:grid;gap:2px;padding:10px 0;border-top:1px solid var(--line)}
+.err .x{color:var(--bad);text-decoration:line-through;direction:ltr;text-align:left}
+.err .v{color:var(--ok);font-weight:700;direction:ltr;text-align:left}
+details.rule{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:10px 0}
+details.rule summary{cursor:pointer;font-weight:600}
+input[type=search],input[type=text]{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+.vrow{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.vrow .w{flex:1;min-width:0;border:0;background:none;padding:0;text-align:start;border-radius:6px}
+.vrow .w .d{direction:ltr;display:block;text-align:start;font-weight:600}
+[dir=rtl] .vrow .w .d{text-align:right}
+.vex{display:block;margin-top:6px;padding:8px 10px;background:var(--chip);border-radius:10px;font-size:.92rem}
+.vex i{display:block;direction:ltr;text-align:left;font-style:normal;font-weight:600}
+.big{font-size:3rem;margin:.2em 0}
+.logo{width:1.5em;height:1.5em;vertical-align:-.35em;color:var(--ink)}
+.logo.xl{width:76px;height:76px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;min-height:44px}
+.endp{align-self:center;font-weight:700;font-size:1.2rem;margin-inline-start:-4px}
+.top2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;min-height:36px}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9}
+#toast.on{opacity:1}
+@media (max-width:420px){.opts.h{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status"></div>
+<script src="data/core.js"></script>
+<script src="data/freq.js"></script>
+<script src="lang/de.js"></script>
+<script>
+"use strict";
+/* ============ EINSTELLUNGEN ============
+   Statistik: GoatCounter-Code eintragen (z. B. "deutschtrainer" für
+   https://deutschtrainer.goatcounter.com). Leer = keine Statistik.
+   Feedback: entweder eine E-Mail-Adresse oder die Adresse eines Formulars
+   eintragen. In der Formular-Adresse wird {ref} durch Version, Sprache und
+   Satz-Kennung ersetzt. Beides leer = kein Feedback-Knopf. */
+const STATS = { goatcounter: "" };
+const FEEDBACK = { email: "", url: "" };
+/* ======================================= */
+
+const CORE = window.DT_CORE, LANGS = window.DT_LANG;
+const DE = LANGS.de, KEY = "dt_wien_v1";
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const LOGO = '<svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="24" cy="21" r="15"/><path d="M24 6v30M9 21h30M13.4 10.4l21.2 21.2M34.6 10.4L13.4 31.6M24 21l-9 24M24 21l9 24M11 45h26"/></g><g fill="var(--acc)"><rect x="21" y="2.5" width="6" height="6" rx="1.5"/><rect x="21" y="33.5" width="6" height="6" rx="1.5"/><rect x="5.5" y="18" width="6" height="6" rx="1.5"/><rect x="36.5" y="18" width="6" height="6" rx="1.5"/><rect x="10" y="7" width="6" height="6" rx="1.5"/><rect x="32" y="7" width="6" height="6" rx="1.5"/><rect x="10" y="29" width="6" height="6" rx="1.5"/><rect x="32" y="29" width="6" height="6" rx="1.5"/></g></svg>';
+let S = { lang: null, ui: null, level: 1, profile: null, cname: "", prog: {}, miss: {}, seen: {}, dark: false };
+let L = DE, ses = null, view = "lang", ask = null;
+let vstate = { tab: "list", cat: "all", q: "", sort: "freq", open: null, quiz: null };
+const EX = {};
+
+function load() { try { const r = JSON.parse(localStorage.getItem(KEY)); if (r && typeof r === "object") S = Object.assign(S, r); } catch (e) {} if (!S.miss) S.miss = {}; if (!S.seen) S.seen = {};
+    /* alte Speicherform (Fortschritt ohne Sprache) der aktuellen Sprache zuordnen */
+    if (S.prog && Object.keys(S.prog).some(k => S.prog[k] && typeof S.prog[k].best === "number")) { const old = S.prog; S.prog = {}; S.prog[S.lang || "_"] = old; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+/* {…} markiert deutschen Text innerhalb einer Erklärung */
+function fmt(s) { return esc(s || "").replace(/\{([^}]*)\}/g, '<span class="de" dir="ltr" lang="de">$1</span>'); }
+function t(k) { return (L.ui && L.ui[k]) || DE.ui[k] || k; }
+function modText(id) { return (L.mod && L.mod[id]) || DE.mod[id] || { t: id, r: "" }; }
+function tr(id) { return L !== DE && L.s ? L.s[id] : null; }
+function vtr(w) { return L !== DE && L.v ? L.v[w] : null; }
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function art(g) { return { m: "der", f: "die", n: "das", pl: "die" }[g] || ""; }
+function native() { return !!S.lang && S.lang === S.ui; }
+function langMeta(id) { return CORE.langs.find(x => x.id === id) || CORE.presets.find(x => x.id === id); }
+let toastT = 0;
+function toast(msg) { const el = $("#toast"); el.textContent = msg; el.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 2600); }
+
+/* ---------- Statistik (anonym, nur wenn oben eingetragen) ---------- */
+function statInit() {
+  if (!STATS.goatcounter) return;
+  const s = document.createElement("script");
+  s.async = true; s.src = "https://gc.zgo.at/count.js";
+  s.dataset.goatcounter = "https://" + STATS.goatcounter + ".goatcounter.com/count";
+  document.head.appendChild(s);
+}
+function stat(name, n) {
+  if (!STATS.goatcounter) return;
+  n = n === undefined ? 6 : n;
+  if (window.goatcounter && window.goatcounter.count) { try { window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
+  else if (n > 0) setTimeout(() => stat(name, n - 1), 1500);
+}
+function statLang() { return S.lang === "custom" ? "andere" : S.lang; }
+
+/* ---------- Feedback ---------- */
+function canFeedback() { return !!(FEEDBACK.email || FEEDBACK.url); }
+function feedback(ref) {
+  const info = "v" + CORE.version + " | " + (S.lang || "-") + "/" + (S.ui || "-") + (ref ? " | " + ref : "");
+  if (FEEDBACK.url) window.open(FEEDBACK.url.replace("{ref}", encodeURIComponent(info)), "_blank", "noopener");
+  else if (FEEDBACK.email) location.href = "mailto:" + FEEDBACK.email + "?subject=" + encodeURIComponent("Deutsch-Trainer Wien: Feedback") + "&body=" + encodeURIComponent("[" + info + "]\n\n");
+  stat("feedback");
+}
+
+/* ---------- Audio ---------- */
+let voice = null;
+function pickVoice() {
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices().filter(v => /^de([-_]|$)/i.test(v.lang));
+  voice = vs.find(v => /de[-_]AT/i.test(v.lang)) || vs.find(v => /de[-_]DE/i.test(v.lang)) || vs[0] || null;
+}
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function canSpeak() { return "speechSynthesis" in window; }
+function speak(txt) {
+  if (!canSpeak()) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt.replace(/–/g, ""));
+    u.lang = voice ? voice.lang : "de-AT"; if (voice) u.voice = voice; u.rate = 0.9;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function spk(txt) { return canSpeak() ? `<button class="spk" data-say="${esc(txt)}" aria-label="${esc(t("listen"))}" title="${esc(t("listen"))}">🔊</button>` : ""; }
+
+/* ---------- Sprachdateien laden ---------- */
+function loadLang(id) {
+  return new Promise((res, rej) => {
+    if (LANGS[id]) return res(LANGS[id]);
+    const s = document.createElement("script");
+    s.src = "lang/" + id + ".js?v=" + CORE.version;
+    s.onload = () => LANGS[id] ? res(LANGS[id]) : rej(new Error("lang"));
+    s.onerror = () => rej(new Error("lang"));
+    document.head.appendChild(s);
+  });
+}
+function applyLang() {
+  const meta = CORE.langs.find(x => x.id === S.ui);
+  document.documentElement.lang = S.ui || "de";
+  app.dir = meta && meta.rtl && view !== "lang" ? "rtl" : "ltr";
+  document.documentElement.dataset.theme = S.dark ? "dark" : "light";
+}
+function hasFF() { return native() && L.ff && L.ff.length > 0; }
+function weights() {
+  const w = S.lang === "custom" ? (S.profile || {}) : (CORE.profiles[S.lang] || {});
+  const out = {};
+  CORE.modules.forEach(m => { let x = w[m.id]; if (x === undefined) x = 1; if (m.core && x < 2) x = 2; if (m.id === "ff") x = hasFF() ? 3 : 0; out[m.id] = x; });
+  return out;
+}
+function visibleMods() { return CORE.modules.filter(m => !(m.id === "laute" && !canSpeak()) && !(m.id === "ff" && !hasFF())); }
+
+/* ---------- Übungen zusammenstellen ---------- */
+function typeOf(it) { return it.c ? "puzzle" : it.t ? "gap" : "pick"; }
+function missKey(it) { return it.id || (it.v ? "g:" + it.v.d : it.f ? "f:" + it.f.de : null); }
+function byMiss(a, key) { return a.map((x, i) => [x, S.miss[key(x)] ? 0 : 1, i]).sort((p, q) => p[1] - q[1] || p[2] - q[2]).map(p => p[0]); }
+function itemsFor(id, max) {
+  max = max || 10;
+  if (id === "genus") {
+    const pool = shuffle(CORE.vocab.filter(v => "mfn".includes(v.g || "x") && v.l <= S.level));
+    return shuffle(byMiss(pool, v => "g:" + v.d).slice(0, max)).map(v => ({ type: "genus", mod: id, v }));
+  }
+  if (id === "laute") {
+    return shuffle(CORE.pairs).slice(0, max).map(p => ({ type: "laute", mod: id, pair: p, target: Math.random() < 0.5 ? 0 : 1 }));
+  }
+  if (id === "ff") {
+    return shuffle(byMiss(shuffle(L.ff || []), f => "f:" + f.de).slice(0, max)).map(f => ({ type: "ff", mod: id, f }));
+  }
+  /* Auswahl: zuerst bis zur Hälfte früher falsch gelöste Sätze, dann die am seltensten gezeigten. So kommen alle Sätze der Reihe nach dran. */
+  let pool = shuffle(CORE.items[id].filter(x => x.l <= S.level)).sort((a, b) => (S.seen[a.id] || 0) - (S.seen[b.id] || 0));
+  const missed = pool.filter(x => S.miss[x.id]).slice(0, Math.ceil(max / 2));
+  pool = missed.concat(pool.filter(x => missed.indexOf(x) < 0).slice(0, max - missed.length));
+  pool.forEach(x => { S.seen[x.id] = (S.seen[x.id] || 0) + 1; }); save();
+  return shuffle(pool).map(x => Object.assign({ type: typeOf(x), mod: id }, x));
+}
+function mixedItems(kind) {
+  const w = weights(), mods = visibleMods(); let out = [];
+  let min = kind === "typ" ? 3 : 1;
+  if (kind === "typ" && mods.filter(m => w[m.id] >= 3).length < 4) min = 2;
+  mods.forEach(m => { if (w[m.id] >= min) out = out.concat(itemsFor(m.id, kind === "typ" ? 3 : w[m.id])); });
+  return shuffle(out).slice(0, 15);
+}
+function fullSentence(it, opt) {
+  if (it.c) return it.c.join(" ");
+  if (it.ok) return it.ok;
+  const o = opt === undefined ? it.o[0] : opt;
+  return it.t.replace("___", o === "–" ? "" : o).replace(/\s+/g, " ").replace(/\s([.?!,])/g, "$1").trim();
+}
+/* Beispielsätze für den Wortschatz aus den Übungssätzen suchen */
+function buildEx() {
+  const sents = [];
+  for (const m in CORE.items) CORE.items[m].forEach(it => sents.push({ id: it.id, t: fullSentence(it), n: fullSentence(it).length }));
+  sents.sort((a, b) => a.n - b.n);
+  const split = s => s.split(/[^A-Za-zÄÖÜäöüß-]+/);
+  sents.forEach(s => { s.w = split(s.t); s.lw = s.w.map(x => x.toLowerCase()); });
+  CORE.vocab.forEach(v => {
+    if (CORE.noEx.includes(v.d) || /[ !]/.test(v.d)) return;
+    const noun = !!v.g;
+    let forms = [v.d]; if (v.p) forms.push(v.p);
+    if (CORE.forms[v.d]) forms = forms.concat(CORE.forms[v.d].split(" "));
+    if (v.c === "a") forms = forms.concat(["e", "er", "es", "en", "em"].map(x => v.d + x));
+    const set = new Set(noun ? forms : forms.map(f => f.toLowerCase()));
+    const hit = sents.find(s => (noun ? s.w : s.lw).some(x => set.has(x)));
+    if (hit) EX[v.d] = hit;
+  });
+}
+
+/* ---------- Ansichten ---------- */
+function go(v) { view = v; render(); window.scrollTo(0, 0); }
+function render() {
+  applyLang();
+  const f = { lang: vLang, ask: vAsk, intro: vIntro, home: vHome, ex: vEx, done: vDone, vocab: vVocab }[view] || vHome;
+  app.innerHTML = f() + (infoOpen ? infoModal() : "");
+  if (view === "ex" && ses && ses.cur().type === "laute" && !ses.answered) { const word = ses.cur().pair[ses.cur().target]; setTimeout(() => speak(word), 350); }
+}
+const FS_ON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
+const FS_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
+const INFO = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.2v.3"/></svg>';
+const SV = p => '<svg viewBox="0 0 24 24" aria-hidden="true">' + p + '</svg>';
+const I_SHARE = SV('<path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6"/>');
+const I_GLOBE = SV('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>');
+const I_MOON = SV('<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>');
+const I_SUN = SV('<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>');
+const I_X = SV('<path d="M6 6l12 12M18 6L6 18"/>');
+const I_CHECK = SV('<path d="M5 12.5l4.5 4.5L19 7.5"/>');
+/* Linien-Icons der Übungen (statt Emojis: sehen auf jedem Gerät gleich aus) */
+const MICON = {
+  v2: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 9.5c0-3 5-3 5 0 0 2-5 3-5 5.5h5"/>',
+  klammer: '<path d="M9 4H6v16h3M15 4h3v16h-3"/>',
+  neben: '<path d="M4 12h12M12 8l4 4-4 4M20 5v14"/>',
+  genus: '<circle cx="6" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/>',
+  kasus: '<path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/>',
+  artikel: '<path d="M4 12V5h7l9 9-7 7z"/><circle cx="8.5" cy="9.5" r="1.2"/>',
+  subjekt: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/>',
+  kopula: '<path d="M9 12h6M8 8H7a4 4 0 0 0 0 8h1M16 8h1a4 4 0 0 1 0 8h-1"/>',
+  negation: '<circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/>',
+  haben: '<rect x="3" y="7" width="18" height="10" rx="5"/><circle cx="8" cy="12" r="2"/>',
+  plural: '<rect x="4" y="8" width="12" height="12" rx="2"/><path d="M8 8V4h12v12h-4"/>',
+  verbform: '<path d="M4 20l4-1L19 8l-3-3L5 16z"/>',
+  praep: '<rect x="4" y="9" width="16" height="11" rx="2"/><circle cx="12" cy="5" r="1.5"/>',
+  perfekt: '<path d="M4 12a8 8 0 1 0 2.5-5.8M4 5v4h4M12 8v4l3 2"/>',
+  adjektiv: '<path d="M12 4l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/>',
+  tekamolo: '<circle cx="9" cy="12" r="6"/><path d="M9 9v3l2 1.5M18 6v12M15.5 15.5 18 18l2.5-2.5"/>',
+  schrift: '<path d="M3 18l5-12 5 12M5 14h6"/><circle cx="17.5" cy="15" r="3"/><path d="M20.5 12v6"/>',
+  laute: '<path d="M4 10v4h4l5 4V6L8 10zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>',
+  pronomen: '<path d="M7 7h10l-3-3M17 17H7l3 3"/>',
+  anrede: '<path d="M4 5h16v11H9l-5 4z"/>',
+  ff: '<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>'
+};
+const micon = m => `<span class="mi c${CORE.modules.indexOf(m) % 6}">${SV(MICON[m.id] || MICON.v2)}</span>`;
+let infoOpen = false, moreOpen = false;
+const fsOk = () => !!(document.fullscreenEnabled && document.documentElement.requestFullscreen);
+const fsIcon = () => document.fullscreenElement ? FS_OFF : FS_ON;
+function toggleFull() {
+  try { const p = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); if (p && p.catch) p.catch(() => {}); } catch (e) {}
+}
+document.addEventListener("fullscreenchange", () => document.querySelectorAll("[data-full]").forEach(b => { b.innerHTML = fsIcon(); }));
+const l2hint = () => `<p class="small mute hint">💡 ${fmt(t("l2hint"))} <button class="link" data-go="lang">🌍 ${fmt(t("changeLang"))}</button></p>`;
+/* Fortschritt wird pro Sprache gespeichert: S.prog[sprache][modul] */
+function prog() { const k = S.lang || "_"; return S.prog[k] || (S.prog[k] = {}); }
+function topbar(back, title) {
+  const ic = (attr, sym, label) => `<button class="ib" ${attr} title="${esc(label)}" aria-label="${esc(label)}">${sym}</button>`;
+  /* oben links: Info, Teilen · oben rechts: Sprache wechseln, Vollbild, Hell/Dunkel · darunter: Zurück oder Titel */
+  return `<div class="top"><div class="row">${ic('data-info="1"', INFO, "Info")}${ic('data-share="1"', I_SHARE, t("share"))}</div>
+  <div class="row">${view !== "lang" && view !== "ask" ? ic('data-go="lang"', I_GLOBE, t("changeLang")) : ""}${fsOk() ? ic('data-full="1"', fsIcon(), t("full")) : ""}${ic('data-dark="1"', S.dark ? I_SUN : I_MOON, t("dark"))}</div></div>
+  ${back || title ? `<div class="top2">${back ? `<button class="back" data-go="${back}"><span class="arr">←</span> ${fmt(t("back"))}</button>` : ""}${title || ""}</div>` : ""}`;
+}
+function tile(l, attr) { const tip = l.de + " · " + l.en; return `<button class="langbtn" ${l.rtl ? 'dir="rtl"' : ""} ${attr}="${l.id}" lang="${l.id}" title="${esc(tip)}" data-tip="${esc(tip)}">${esc(l.name)}</button>`; }
+function vLang() {
+  return topbar("", "") + `<div class="center"><div>${LOGO.replace('class="logo"', 'class="logo xl"')}</div><h1>Deutsch-Trainer Wien</h1>
+  <p class="mute">Wähle deine Sprache · Choose your language</p></div>
+  <div class="grid" style="margin-top:20px">${CORE.langs.map(l => tile(l, "data-lang")).join("")}</div>
+  <h2 class="center" style="margin-top:28px">${CORE.presets.length ? "Weitere Sprachen · More languages" : "Andere Sprache · Other language"}</h2>
+  <p class="center small mute">${CORE.presets.length ? "Passende Übungen, Erklärungen vorerst in einer anderen Sprache.<br>Matching exercises; explanations in another language for now." : "Deine Sprache fehlt? Beantworte ein paar Fragen und du bekommst passende Übungen.<br>Your language is missing? Answer a few questions and get matching exercises."}</p>
+  <div class="grid sm">${CORE.presets.map(l => tile(l, "data-preset")).join("")}
+  <button class="langbtn" data-lang="custom" title="Andere Sprache · Other language" data-tip="Andere Sprache · Other language">🌍 …</button></div>
+  <p class="center small mute" style="margin-top:28px">v${CORE.version}</p>`;
+}
+function vAsk() {
+  if (!ask.ui) {
+    const who = ask.preset ? langMeta(ask.preset).name : "🌍 Andere Sprache · Other language";
+    return topbar("lang", "") + `<h1>${esc(who)}</h1><p>In welcher Sprache möchtest du die Erklärungen lesen?<br><span class="mute">In which language would you like to read the explanations?</span></p>
+    <div class="grid"><button class="langbtn" data-askui="de" title="Einfaches Deutsch · Simple German" data-tip="Einfaches Deutsch · Simple German">Deutsch (einfach)</button>${CORE.langs.map(l => tile(l, "data-askui")).join("")}</div>`;
+  }
+  const q = CORE.quiz[ask.i];
+  if (!q) {
+    return topbar("lang", "") + `<h1>${fmt(t("q_h"))}</h1><p>${fmt(t("myLang"))}</p><input type="text" id="cname" maxlength="30" autocomplete="off">
+    <p style="margin-top:16px"><button class="btn" data-askdone="1">${fmt(t("start"))}</button></p>`;
+  }
+  const txt = (L.q && L.q[q.id]) || DE.q[q.id];
+  return topbar("lang", "") + `<h1>${fmt(t("q_h"))}</h1><p class="mute">${fmt(t("q_sub"))}</p>
+  <div class="bar"><i style="width:${Math.round(ask.i / CORE.quiz.length * 100)}%"></i></div>
+  <div class="card"><p class="prompt">${fmt(txt)}</p>
+  <div class="opts h2"><button class="opt l1" data-ans="yes">${fmt(t("yes"))}</button><button class="opt l1" data-ans="no">${fmt(t("no"))}</button></div></div>`;
+}
+function vIntro() {
+  const I = L.intro;
+  if (!I || !native()) { view = "home"; return vHome(); }
+  return topbar("lang", "") + `<h1>${fmt(I.h)}</h1><p>${fmt(I.p)}</p>
+  <div class="card"><b>${fmt(t("intro_h"))}</b>
+  ${I.e.map(e => `<div class="err"><span class="x" lang="de">✗ ${esc(e.x)}</span><span class="v" lang="de">✓ ${esc(e.ok)} ${spk(e.ok)}</span><span class="small mute">${fmt(e.c)}</span></div>`).join("")}</div>
+  <p><button class="btn" data-go="home">${fmt(t("start"))}</button></p>${l2hint()}`;
+}
+function modCard(m) {
+  const mt = modText(m.id), p = prog()[m.id];
+  const sub = L !== DE ? `<span class="small mute" dir="ltr" lang="de">${esc(DE.mod[m.id].t)}</span>` : "";
+  const dot = p && p.best >= 100 ? `<span class="dot done">${I_CHECK}</span>` : `<span class="dot${p ? " part" : ""}"></span>`;
+  return `<button class="mod st" data-mod="${m.id}">${dot}${micon(m)}<span class="tt"><b>${fmt(mt.t)}</b>${sub}</span>${p ? `<span class="pct">${p.best} %</span>` : ""}</button>`;
+}
+/* Linie 1: typische Fehler (Gewicht 3; bei weniger als vier auch Gewicht 2). Linie 2: alles andere, eingeklappt. */
+function planLines() {
+  const w = weights(), mods = visibleMods().slice().sort((a, b) => w[b.id] - w[a.id]);
+  const cut = mods.filter(m => w[m.id] >= 3).length >= 4 ? 3 : 2;
+  return { main: mods.filter(m => w[m.id] >= cut), rest: mods.filter(m => w[m.id] < cut) };
+}
+function vHome() {
+  const { main, rest } = planLines();
+  const lname = S.lang === "custom" ? (S.cname || "") : langMeta(S.lang).name;
+  return topbar("", `<b>${LOGO} Deutsch-Trainer Wien</b>`) + `<p class="mute small">${esc(lname)}</p>
+  <div class="row pills lvl" role="group" aria-label="${esc(t("level"))}"><span class="lab small mute">${fmt(t("level"))}</span>${[1, 2, 3].map(n => `<button data-level="${n}" dir="ltr" class="${S.level === n ? "on" : ""}" title="${esc(t("lvl" + n))}" aria-label="${esc(t("lvl" + n))}">${["A1", "A2", "B1"][n - 1]}</button>`).join("")}</div>
+  <div class="row" style="margin-top:16px"><button class="btn" data-mixed="typ">${fmt(t("mixedTyp"))}</button><button class="btn2" data-go="vocab">${fmt(t("vocab"))}</button></div>
+  <div class="linecard"><div class="lhead"><span class="lbadge">1</span><h2>${fmt(t("plan"))}</h2></div>
+  <div class="stations">${main.map(modCard).join("")}</div></div>
+  ${rest.length ? `<div class="linecard l2"><button class="lhead" data-more="1" aria-expanded="${moreOpen}"><span class="lbadge">2</span><h2>${fmt(t("allMods"))} (${rest.length})</h2><span class="chev">${moreOpen ? "▲" : "▼"}</span></button>
+  ${moreOpen ? `<div class="l2row"><button class="btn2" data-mixed="all">${fmt(t("mixedAll"))}</button></div><div class="stations">${rest.map(modCard).join("")}</div>` : ""}</div>` : ""}
+  ${L.intro && native() ? `<p><button class="link" data-go="intro">${fmt(L.intro.h)}</button></p>` : ""}${l2hint()}`;
+}
+/* Info-Fenster: allgemeine Angaben, Beta-Hinweis, Datenschutz, Fortschritt löschen */
+function infoModal() {
+  return `<div class="ovl" data-infoclose="1"><div class="modal" role="dialog" aria-modal="true" aria-label="Info">
+  <div class="mhead"><h2>${LOGO} Deutsch-Trainer Wien</h2><button class="ib" data-infoclose="1" aria-label="${esc(t("back"))}" title="${esc(t("back"))}">${I_X}</button></div>
+  <p>${fmt(t("about"))}</p>
+  <p class="note small">${fmt(t("beta"))}</p>
+  <p class="small mute">${fmt(t("privacy"))}</p>
+  <p class="small mute" dir="ltr">Deutsch-Trainer Wien v${CORE.version} · Häufigkeitsdaten: FrequencyWords (Hermit Dave), CC BY-SA 4.0</p>
+  <div class="mfoot">${canFeedback() ? `<button class="btn2" data-report="">${fmt(t("feedback"))}</button>` : ""}<button class="btn2" data-reset="1">${fmt(t("reset"))}</button></div></div></div>`;
+}
+function ruleBox(mod, open) {
+  const mt = modText(mod);
+  return `<details class="rule" ${open ? "open" : ""}><summary>💡 ${fmt(mt.t)}</summary><p>${fmt(mt.r)}</p>${mt.n && native() ? `<p class="small"><b>${fmt(t("inYourLang"))}:</b> ${fmt(mt.n)}</p>` : ""}</details>`;
+}
+function vEx() {
+  const it = ses.cur(), n = ses.q.length, trn = it.id ? tr(it.id) : null, dis = ses.answered ? "disabled" : "";
+  const opt = (k, label, cl, lang) => `<button class="opt ${cl || ""} ${cls(k)}" ${lang ? 'lang="de"' : ""} data-opt="${k}" ${dis}>${label}</button>`;
+  let body = "";
+  if (it.type === "puzzle") {
+    const used = ses.sel, pool = ses.pool;
+    body = `<p class="mute">${fmt(t("order"))}</p>${trn ? `<p class="prompt">${esc(trn)}</p>` : ""}
+    <div class="chips ans" lang="de"><span class="chip fix">${esc(it.c[0])}</span>${used.map((ix, k) => `<button class="chip" data-unsel="${k}" ${dis}>${esc(pool[ix])}</button>`).join("")}${ses.end && used.length === pool.length ? `<span class="endp">${esc(ses.end)}</span>` : ""}</div>
+    <div class="chips" lang="de">${pool.map((c, ix) => used.includes(ix) ? "" : `<button class="chip" data-sel="${ix}" ${dis}>${esc(c)}</button>`).join("")}</div>
+    ${ses.answered ? "" : `<p><button class="btn" data-check="1" ${used.length === pool.length ? "" : "disabled"}>${fmt(t("check"))}</button></p>`}`;
+  } else if (it.type === "gap") {
+    body = `<p class="mute">${fmt(t("fill"))}</p><p class="sent" lang="de">${esc(it.t).replace("___", '<span class="gap">?</span>')}</p>${trn ? `<p class="mute">${esc(trn)}</p>` : ""}
+    <div class="opts h">${ses.opts.map((o, k) => opt(k, esc(o), "", 1)).join("")}</div>`;
+  } else if (it.type === "pick") {
+    body = `<p class="mute">${fmt(t("pick"))}</p>${trn ? `<p class="prompt">${esc(trn)}</p>` : ""}
+    <div class="opts">${ses.opts.map((o, k) => opt(k, esc(o), "", 1)).join("")}</div>`;
+  } else if (it.type === "genus") {
+    const m = vtr(it.v.d);
+    body = `<p class="mute">${fmt(t("genusQ"))}</p><p class="sent" lang="de" style="text-align:center;font-size:1.8rem">${esc(it.v.d)}</p>${m ? `<p class="mute center">${esc(m)}</p>` : ""}
+    <div class="opts h">${ses.opts.map((o, k) => opt(k, art(o), "g-" + o, 1)).join("")}</div>`;
+  } else if (it.type === "ff") {
+    body = `<p class="mute">${fmt(t("ffQ"))}</p><p class="sent" lang="de" style="text-align:center;font-size:1.8rem">${esc(it.f.de)} ${spk(it.f.de)}</p>
+    <div class="opts">${ses.opts.map((o, k) => opt(k, esc(o), "l1")).join("")}</div>`;
+  } else {
+    body = `<p class="mute">${fmt(t("hear"))}</p><p class="center"><button class="btn" data-say="${esc(it.pair[it.target])}">🔊 ${fmt(t("listen"))}</button></p>
+    <div class="opts h2">${ses.opts.map((o, k) => opt(k, esc(o), "", 1)).join("")}</div>`;
+  }
+  let fb = "";
+  if (ses.answered) {
+    const good = ses.lastOk;
+    const sol = it.type === "genus" ? `${art(it.v.g)} ${it.v.d}${it.v.p ? ", die " + it.v.p : ""}` : it.type === "laute" ? it.pair[it.target] : it.type === "ff" ? it.f.de : fullSentence(it);
+    const extra = it.type === "ff" ? `<p>= ${esc(it.f.ok)}</p>${it.f.c ? `<p class="small">${fmt(it.f.c)}</p>` : ""}` : !good ? `<p class="small">${fmt(modText(it.mod).r)}</p>` : "";
+    fb = `<div class="fb ${good ? "good" : "bad"}" role="status"><b>${good ? "✓ " + fmt(t("correct")) : "✗ " + fmt(t("wrong"))}</b>
+    <p class="sent ${it.type === "genus" ? "g-" + it.v.g : ""}" lang="de">${esc(sol)} ${spk(sol)}</p>${extra}</div>
+    <div class="row"><button class="btn" data-next="1">${fmt(t("next"))}</button>${canFeedback() ? `<button class="link" data-report="${esc(missKey(it) || it.mod)}">🚩 ${fmt(t("report"))}</button>` : ""}</div>`;
+  }
+  return topbar("home", `<span class="mute small">${ses.i + 1} / ${n}</span>`) + `<div class="bar"><i style="width:${Math.round(ses.i / n * 100)}%"></i></div>
+  ${ruleBox(it.mod, ses.i === 0 && ses.mod && !ses.answered)}
+  <div class="card">${body}${fb}</div>`;
+}
+function cls(k) { if (!ses.answered) return ""; if (k === ses.right) return "good"; if (k === ses.chosen) return "bad"; return ""; }
+function vDone() {
+  const pct = Math.round(ses.ok / ses.q.length * 100);
+  return topbar("home", "") + `<div class="center"><div class="big">${pct >= 80 ? "🎉" : pct >= 50 ? "👍" : "💪"}</div><h1>${fmt(t("done"))}</h1>
+  <p class="prompt">${fmt(t("score").replace("{n}", ses.ok).replace("{m}", ses.q.length))}</p>
+  <div class="row" style="justify-content:center"><button class="btn" data-again="1">${fmt(t("again"))}</button></div></div>`;
+}
+function vocabFiltered() {
+  const q = vstate.q.trim().toLowerCase(), F = CORE.freq || {};
+  const a = CORE.vocab.filter(v => (vstate.cat === "all" || v.c === vstate.cat) && (!q || v.d.toLowerCase().includes(q) || (vtr(v.d) || "").toLowerCase().includes(q)));
+  if (vstate.sort === "abc") return a.slice().sort((x, y) => x.d.localeCompare(y.d, "de"));
+  return a.map((v, i) => [v, F[v.d] || 99999, i]).sort((p, q2) => p[1] - q2[1] || p[2] - q2[2]).map(p => p[0]);
+}
+function vocabRows() {
+  return vocabFiltered().map(v => {
+    const de = `${v.g ? art(v.g) + " " : ""}${v.d}`, m = vtr(v.d), ex = EX[v.d], open = vstate.open === v.d;
+    const exT = ex && open ? tr(ex.id) : null;
+    return `<div class="vrow"><button class="w" data-vex="${esc(v.d)}" ${ex ? "" : "disabled style=\"opacity:1;cursor:default\""}><span class="d ${"mfn".includes(v.g || "x") ? "g-" + v.g : ""}" lang="de">${esc(de)}${v.p ? `<span class="mute small" style="font-weight:400"> · die ${esc(v.p)}</span>` : ""}${ex && !open ? ' <span class="mute small" style="font-weight:400">▸</span>' : ""}</span>
+    ${m ? `<span>${esc(m)}</span>` : ""}${v.de ? `<span class="small mute"> · ${fmt(t("inGermany"))} <span dir="ltr" lang="de">${esc(v.de)}</span></span>` : ""}
+    ${ex && open ? `<span class="vex"><i lang="de">${esc(ex.t)}</i>${exT ? esc(exT) : ""}</span>` : ""}</button>${spk(open && ex ? ex.t : de)}</div>`;
+  }).join("");
+}
+function vVocab() {
+  const cats = [["all", "∗"], ["n", t("cat_n")], ["v", t("cat_v")], ["a", t("cat_a")], ["w", t("cat_w")], ["at", "🇦🇹 " + t("cat_at")]];
+  const pill = (attr, val, cur, label) => `<button ${attr}="${val}" class="${cur === val ? "on" : ""}">${label}</button>`;
+  const head = topbar("home", `<b>📚 ${fmt(t("vocab"))}</b>`) + `<div class="row pills">${pill("data-vtab", "list", vstate.tab, fmt(t("vList")))}${L !== DE ? pill("data-vtab", "quiz", vstate.tab, fmt(t("vQuiz"))) : ""}</div>
+  <div class="row pills" style="margin-top:10px">${cats.map(c => pill("data-vcat", c[0], vstate.cat, esc(c[1]))).join("")}</div>`;
+  if (vstate.tab === "quiz" && vstate.quiz) {
+    const z = vstate.quiz, v = z.q[z.i];
+    if (!v) return head + `<div class="card center"><div class="big">🎉</div><p class="prompt">${fmt(t("score").replace("{n}", z.ok).replace("{m}", z.q.length))}</p><button class="btn" data-vquiz="1">${fmt(t("again"))}</button></div>`;
+    const de = `${v.g ? art(v.g) + " " : ""}${v.d}`;
+    return head + `<div class="card"><p class="mute small">${z.i + 1} / ${z.q.length}</p>
+    <p class="sent ${"mfn".includes(v.g || "x") ? "g-" + v.g : ""}" style="text-align:center;font-size:1.6rem" lang="de">${esc(de)} ${spk(de)}</p>
+    <div class="opts">${z.opts.map((o, k) => `<button class="opt l1 ${z.done ? (k === z.right ? "good" : k === z.chosen ? "bad" : "") : ""}" data-vopt="${k}" ${z.done ? "disabled" : ""}>${esc(o)}</button>`).join("")}</div>
+    ${z.done ? `<button class="btn" data-vnext="1">${fmt(t("next"))}</button>` : ""}</div>`;
+  }
+  return head + `<div class="row pills" style="margin-top:10px">${pill("data-vsort", "freq", vstate.sort, fmt(t("sortFreq")))}${pill("data-vsort", "abc", vstate.sort, fmt(t("sortAbc")))}</div>
+  <p style="margin-top:12px"><input type="search" id="vq" placeholder="${esc(t("search"))}" value="${esc(vstate.q)}"></p>
+  ${vstate.tab === "quiz" ? `<p><button class="btn" data-vquiz="1">${fmt(t("start"))}</button></p>` : ""}<div id="vlist">${vocabRows()}</div>`;
+}
+/* ---------- Ablauf einer Übung ---------- */
+function startSession(q, mod, kind) {
+  if (!q.length) return;
+  ses = { q, i: 0, ok: 0, mod, kind, cur() { return this.q[this.i]; } };
+  prep(); stat("uebung-" + (mod || "gemischt-" + kind)); go("ex");
+}
+function prep() {
+  const it = ses.cur();
+  ses.answered = false; ses.chosen = -1; ses.right = -1; ses.sel = []; ses.lastOk = false;
+  if (it.type === "puzzle") { const m = /[.!?]+$/.exec(it.c[it.c.length - 1]); ses.end = m ? m[0] : ""; ses.want = it.c.slice(1).map((c, i, a) => i === a.length - 1 && ses.end ? c.slice(0, -ses.end.length) : c);
+    let p = ses.want, k = 0; do { ses.pool = shuffle(p); k++; } while (p.length > 1 && ses.pool.join("|") === p.join("|") && k < 8); }
+  else if (it.type === "gap") { ses.opts = shuffle(it.o); ses.right = ses.opts.indexOf(it.o[0]); }
+  else if (it.type === "pick") { ses.opts = shuffle([it.ok].concat(it.no)); ses.right = ses.opts.indexOf(it.ok); }
+  else if (it.type === "genus") { ses.opts = ["m", "f", "n"]; ses.right = ses.opts.indexOf(it.v.g); }
+  else if (it.type === "ff") { ses.opts = shuffle([it.f.ok, it.f.no]); ses.right = ses.opts.indexOf(it.f.ok); }
+  else { ses.opts = it.pair.slice(); ses.right = it.target; }
+}
+function answer(ok) {
+  ses.answered = true; ses.lastOk = ok; if (ok) ses.ok++;
+  const k = missKey(ses.cur());
+  if (k) { if (!ok) S.miss[k] = (S.miss[k] || 0) + 1; else if (S.miss[k]) { S.miss[k]--; if (S.miss[k] <= 0) delete S.miss[k]; } save(); }
+  render();
+  const fb = app.querySelector(".fb"); if (fb) fb.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+function next() {
+  ses.i++;
+  if (ses.i >= ses.q.length) {
+    if (ses.mod) { const pct = Math.round(ses.ok / ses.q.length * 100), p = prog()[ses.mod] || { best: 0, n: 0 }; prog()[ses.mod] = { best: Math.max(p.best, pct), n: p.n + 1 }; save(); }
+    return go("done");
+  }
+  prep(); render(); window.scrollTo(0, 0);
+}
+function vquizStart() {
+  const pool = vocabFiltered().filter(v => vtr(v.d));
+  if (pool.length < 4) return;
+  vstate.quiz = { q: shuffle(pool).slice(0, 10), i: 0, ok: 0 }; vquizPrep();
+}
+function vquizPrep() {
+  const z = vstate.quiz, v = z.q[z.i]; z.done = false; z.chosen = -1;
+  if (!v) return;
+  const same = CORE.vocab.filter(x => x.d !== v.d && x.c === v.c && vtr(x.d) && vtr(x.d) !== vtr(v.d));
+  z.opts = shuffle([vtr(v.d)].concat(shuffle(same).slice(0, 3).map(x => vtr(x.d)))); z.right = z.opts.indexOf(vtr(v.d));
+}
+async function chooseLang(id) {
+  try { L = await loadLang(id); } catch (e) { L = DE; toast("Sprachdatei konnte nicht geladen werden · Language file could not be loaded"); return false; }
+  return true;
+}
+function share() {
+  const url = location.href.split("#")[0], text = t("shareText");
+  if (navigator.share) { navigator.share({ title: "Deutsch-Trainer Wien", text, url }).catch(() => {}); }
+  else if (navigator.clipboard) { navigator.clipboard.writeText(text + " " + url).then(() => toast("✓ " + t("copied"))).catch(() => {}); }
+  stat("teilen");
+}
+
+/* ---------- Ereignisse ---------- */
+let pressT = 0, pressed = false;
+app.addEventListener("touchstart", ev => {
+  const b = ev.target.closest("[data-tip]"); if (!b) return;
+  pressed = false; clearTimeout(pressT);
+  pressT = setTimeout(() => { pressed = true; toast(b.dataset.tip); }, 550);
+}, { passive: true });
+["touchend", "touchmove", "touchcancel"].forEach(n => app.addEventListener(n, () => clearTimeout(pressT), { passive: true }));
+app.addEventListener("contextmenu", ev => { if (ev.target.closest("[data-tip]")) ev.preventDefault(); });
+document.addEventListener("keydown", ev => { if (ev.key === "Escape" && infoOpen) { infoOpen = false; render(); } });
+app.addEventListener("click", async ev => {
+  if (infoOpen && ev.target.classList && ev.target.classList.contains("ovl")) { infoOpen = false; return render(); }
+  const b = ev.target.closest("button"); if (!b) return;
+  if (pressed && b.dataset.tip) { pressed = false; return; }
+  const d = b.dataset;
+  if (d.say !== undefined) return speak(d.say);
+  if (d.share) return share();
+  if (d.full) return toggleFull();
+  if (d.report !== undefined) return feedback(d.report);
+  if (d.dark) { S.dark = !S.dark; save(); return render(); }
+  if (d.lang) {
+    if (d.lang === "custom") { ask = { ui: null, i: 0, a: {} }; return go("ask"); }
+    if (!(await chooseLang(d.lang))) return;
+    const isNew = S.lang !== d.lang; S.lang = d.lang; S.ui = d.lang; save();
+    if (isNew) stat("neu-" + d.lang);
+    return go("intro");
+  }
+  if (d.preset) { ask = { ui: null, preset: d.preset }; return go("ask"); }
+  if (d.askui) {
+    if (!(await chooseLang(d.askui))) return;
+    ask.ui = d.askui; S.ui = d.askui;
+    if (ask.preset) { const isNew = S.lang !== ask.preset; S.lang = ask.preset; save(); if (isNew) stat("neu-" + ask.preset); return go("home"); }
+    return go("ask");
+  }
+  if (d.ans) { ask.a[CORE.quiz[ask.i].id] = d.ans; ask.i++; return render(); }
+  if (d.askdone) {
+    const prof = Object.assign({}, CORE.customBase);
+    CORE.quiz.forEach(q => { prof[q.m] = ask.a[q.id] === q.w ? 3 : q.e; });
+    const nm = ($("#cname").value || "").trim().slice(0, 30);
+    S.lang = "custom"; S.profile = prof; S.cname = nm; save();
+    const slug = nm.toLowerCase().replace(/[^a-zà-ɏ]/g, "").slice(0, 20);
+    stat("neu-andere" + (slug ? "-" + slug : ""));
+    return go("home");
+  }
+  if (d.go) {
+    if (d.go === "home" && !S.lang) return go("lang");
+    if (d.go === "lang" && view === "ask" && S.lang && LANGS[S.lang] ) { S.ui = S.ui; }
+    return go(d.go);
+  }
+  if (d.level) { S.level = +d.level; save(); return render(); }
+  if (d.mod) return startSession(itemsFor(d.mod), d.mod);
+  if (d.mixed) return startSession(mixedItems(d.mixed), null, d.mixed);
+  if (d.again) return ses.mod ? startSession(itemsFor(ses.mod), ses.mod) : startSession(mixedItems(ses.kind), null, ses.kind);
+  if (d.sel !== undefined) { ses.sel.push(+d.sel); return render(); }
+  if (d.unsel !== undefined) { ses.sel.splice(+d.unsel, 1); return render(); }
+  if (d.check) { const it = ses.cur(); return answer(ses.sel.map(i => ses.pool[i]).join(" ") === ses.want.join(" ")); }
+  if (d.opt !== undefined) { ses.chosen = +d.opt; return answer(ses.chosen === ses.right); }
+  if (d.next) return next();
+  if (d.vtab) { vstate.tab = d.vtab; vstate.quiz = null; return render(); }
+  if (d.vcat) { vstate.cat = d.vcat; vstate.quiz = null; return render(); }
+  if (d.vsort) { vstate.sort = d.vsort; return render(); }
+  if (d.vex !== undefined) { vstate.open = vstate.open === d.vex ? null : d.vex; $("#vlist").innerHTML = vocabRows(); return; }
+  if (d.vquiz) { vquizStart(); return render(); }
+  if (d.vopt !== undefined) { const z = vstate.quiz; z.chosen = +d.vopt; z.done = true; if (z.chosen === z.right) z.ok++; return render(); }
+  if (d.vnext) { vstate.quiz.i++; vquizPrep(); return render(); }
+  if (d.reset) { S.prog = {}; S.miss = {}; S.seen = {}; save(); toast("✓"); infoOpen = false; return render(); }
+  if (d.info) { infoOpen = true; return render(); }
+  if (d.infoclose) { infoOpen = false; return render(); }
+  if (d.more) { moreOpen = !moreOpen; return render(); }
+});
+app.addEventListener("input", ev => {
+  if (ev.target.id !== "vq") return;
+  vstate.q = ev.target.value; $("#vlist").innerHTML = vocabRows();
+});
+
+/* ---------- Start ---------- */
+(async function init() {
+  load(); statInit(); buildEx();
+  if (S.lang && S.ui) {
+    if (await chooseLang(S.ui)) { stat("besuch-" + statLang()); view = "home"; }
+    else { view = "lang"; }
+  }
+  render();
+})();
+</script>
+</body>
+</html>
