@@ -752,7 +752,7 @@ window.DT_CORE = {
 
 /* --- 1.6.0 --- */
 (function (C) {
-  C.version = "1.8.1";
+  C.version = "1.8.2";
   C.vocab = C.vocab.concat([
     {d: "Oma", g: "f", p: "Omas", c: "n", l: 1},
     {d: "Opa", g: "m", p: "Opas", c: "n", l: 1},

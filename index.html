@@ -6,7 +6,7 @@
 <title>Deutsch-Trainer Wien</title>
 <meta name="description" content="Deutsch üben: gezielt die Fehler vermeiden, die für Sprecherinnen und Sprecher deiner Muttersprache typisch sind.">
 <style>
-:root{--bg:#f7f4ee;--card:#fff;--ink:#1f2328;--mute:#667085;--line:#e4dfd5;--acc:#b3261e;--acc-ink:#fff;--ok:#1a7f4b;--okbg:#e3f5ea;--bad:#b42318;--badbg:#fde8e6;--m:#1d5fd1;--f:#c0263a;--n:#1a8a4a;--chip:#f0ece3;--l2:#dd6f00;--l2i:#1f1300;--sel:#1d5a9e;--sel-ink:#fff}
+:root{--bg:#f7f4ee;--card:#fff;--ink:#1f2328;--mute:#667085;--line:#e4dfd5;--acc:#b3261e;--acc-ink:#fff;--ok:#1a7f4b;--okbg:#e3f5ea;--bad:#b42318;--badbg:#fde8e6;--m:#1d5fd1;--f:#c0263a;--n:#1a8a4a;--chip:#f0ece3;--l2:#d96a00;--l2i:#fff;--sel:#1d5a9e;--sel-ink:#fff}
 [data-theme=dark]{--bg:#15171a;--card:#1f2226;--ink:#eceef1;--mute:#9aa4b2;--line:#33383f;--acc:#ef6b62;--acc-ink:#1a1010;--ok:#5fd39a;--okbg:#173527;--bad:#ff8a80;--badbg:#3d1c1a;--m:#7fb0ff;--f:#ff8b9a;--n:#6fdc9c;--chip:#2a2e34;--l2:#ffa040;--l2i:#1f1300;--sel:#8ab4ff;--sel-ink:#0d1b30}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -22,7 +22,8 @@ button:disabled{opacity:.5;cursor:default}
 .btn2{font-weight:600}
 .link{border:0;background:none;color:var(--mute);padding:6px 4px;text-decoration:underline}
 .back{border:0;background:none;padding:6px 4px;font-weight:600;display:inline-flex;align-items:center;gap:8px}
-.arr{font-size:1.7em;line-height:.8;display:inline-block}
+.arr{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--sel);color:var(--sel-ink);flex:none}
+.arr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 [dir=rtl] .arr{transform:scaleX(-1)}
 .ib{border-radius:99px;padding:6px 9px;line-height:1.1;font-size:1.05rem}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -355,7 +356,7 @@ function topbar(back, title) {
   /* oben links: Info, Teilen · oben rechts: Sprache wechseln, Vollbild, Hell/Dunkel · darunter: Zurück oder Titel */
   return `<div class="top"><div class="row">${ic('data-info="1"', INFO, "Info")}${ic('data-share="1"', I_SHARE, t("share"))}</div>
   <div class="row">${view !== "lang" && view !== "ask" ? ic('data-go="lang"', I_GLOBE, t("changeLang")) : ""}${fsOk() ? ic('data-full="1"', fsIcon(), t("full")) : ""}${ic('data-dark="1"', S.dark ? I_SUN : I_MOON, t("dark"))}</div></div>
-  ${back || title ? `<div class="top2">${back ? `<button class="back" data-go="${back}"><span class="arr">←</span> ${fmt(t("back"))}</button>` : ""}${title || ""}</div>` : ""}`;
+  ${back || title ? `<div class="top2">${back ? `<button class="back" data-go="${back}"><span class="arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg></span>${fmt(t("back"))}</button>` : ""}${title || ""}</div>` : ""}`;
 }
 function tile(l, attr) { const tip = l.de + " · " + l.en; return `<button class="langbtn" ${l.rtl ? 'dir="rtl"' : ""} ${attr}="${l.id}" lang="${l.id}" title="${esc(tip)}" data-tip="${esc(tip)}">${esc(l.name)}</button>`; }
 function vLang() {
