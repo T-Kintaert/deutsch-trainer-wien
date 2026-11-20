@@ -752,7 +752,7 @@ window.DT_CORE = {
 
 /* --- 1.6.0 --- */
 (function (C) {
-  C.version = "1.8.3";
+  C.version = "1.9.1";
   C.vocab = C.vocab.concat([
     {d: "Oma", g: "f", p: "Omas", c: "n", l: 1},
     {d: "Opa", g: "m", p: "Opas", c: "n", l: 1},
@@ -846,4 +846,13 @@ window.DT_CORE = {
     leben: "lebe lebst lebt leben gelebt", sitzen: "sitze sitzt sitzen gesessen"
   });
   C.noEx = C.noEx.concat(["weiß"]);
+})(window.DT_CORE);
+
+/* --- 1.9.0 --- */
+(function (C) {
+  var mk = function (s) { var k = "artikel genus v2 klammer neben kasus subjekt kopula negation haben plural verbform praep perfekt adjektiv tekamolo schrift laute pronomen anrede".split(" "), o = {}; s.split(" ").forEach(function (w, i) { o[k[i]] = +w; }); return o; };
+  C.profiles.ja = mk("3 3 3 2 2 3 3 2 2 3 3 3 3 3 2 1 3 3 3 1");
+  C.profiles.hi = mk("3 2 3 2 2 2 2 1 2 3 1 2 3 3 1 1 3 2 2 1");
+  var i = C.langs.findIndex(function (l) { return l.id === "en"; });
+  C.langs.splice(i, 0, { id: "hi", name: "हिन्दी", de: "Hindi", en: "Hindi" }, { id: "ja", name: "日本語", de: "Japanisch", en: "Japanese" });
 })(window.DT_CORE);
