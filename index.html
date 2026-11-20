@@ -77,6 +77,9 @@ button:disabled{opacity:.5;cursor:default}
 .mhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .note{background:var(--chip);border-radius:12px;padding:10px 12px;margin:10px 0}
 .mfoot{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.qrbox{display:flex;justify-content:center;margin:6px 0 4px}
+.qr{width:min(260px,70vw);height:auto;border-radius:10px;box-shadow:0 0 0 1px var(--line)}
+.btn svg{width:1.1em;height:1.1em;vertical-align:-.2em;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .pills button{border-radius:99px;padding:6px 14px}
 .pills button.on{background:var(--sel);color:var(--sel-ink);border-color:var(--sel)}
 .lvl{align-items:center}.lvl .lab{font-weight:600;margin-inline-end:4px}.lvl button{min-width:52px;font-weight:600}
@@ -147,6 +150,9 @@ input[type=search],input[type=text]{font:inherit;width:100%;padding:10px 12px;bo
    Satz-Kennung ersetzt. Beides leer = kein Feedback-Knopf. */
 const STATS = { goatcounter: "deutschtrainerwien" };
 const FEEDBACK = { email: "", url: "" };
+/* Adresse der App (für Teilen und QR-Code). Der QR-Code unten (QR_SVG) ist für
+   genau diese Adresse erzeugt; ändert sich die Adresse, muss er neu erzeugt werden. */
+const APP_URL = "https://t-kintaert.github.io/deutsch-trainer-wien/";
 /* ======================================= */
 
 const CORE = window.DT_CORE, LANGS = window.DT_LANG;
@@ -188,8 +194,17 @@ function statInit() {
 function stat(name, n) {
   if (!STATS.goatcounter) return;
   n = n === undefined ? 6 : n;
-  if (window.goatcounter && window.goatcounter.count) { try { window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {} }
+  if (window.goatcounter && window.goatcounter.count) { try { window.goatcounter.count({ path: name, title: statTitle(name), event: true }); } catch (e) {} }
   else if (n > 0) setTimeout(() => stat(name, n - 1), 1500);
+}
+/* Lesbarer Titel für GoatCounter: "neu-ja" → "Neu: Japanisch". Der Pfad (Kürzel) bleibt gleich,
+   damit alte und neue Zählungen in derselben Zeile bleiben. */
+function statTitle(name) {
+  const m = /^(neu|besuch)-(.+)$/.exec(name);
+  if (!m) return name;
+  const id = m[2], meta = langMeta(id);
+  const lang = id === "bks" ? "BKMS" : meta && meta.de ? meta.de : id === "andere" ? "Andere Sprache" : id.startsWith("andere-") ? "Andere Sprache: " + id.slice(7) : id;
+  return (m[1] === "neu" ? "Neu: " : "Besuch: ") + lang;
 }
 function statLang() { return S.lang === "custom" ? "andere" : S.lang; }
 
@@ -308,7 +323,7 @@ function go(v) { view = v; render(); window.scrollTo(0, 0); }
 function render() {
   applyLang();
   const f = { lang: vLang, ask: vAsk, intro: vIntro, home: vHome, ex: vEx, done: vDone, vocab: vVocab }[view] || vHome;
-  app.innerHTML = f() + (infoOpen ? infoModal() : "");
+  app.innerHTML = f() + (infoOpen ? infoModal() : "") + (shareOpen ? shareModal() : "");
   if (view === "ex" && ses && ses.cur().type === "laute" && !ses.answered) { const word = ses.cur().pair[ses.cur().target]; setTimeout(() => speak(word), 350); }
 }
 const FS_ON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
@@ -316,7 +331,7 @@ const FS_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15
 const INFO = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.2v.3"/></svg>';
 const SV = p => '<svg viewBox="0 0 24 24" aria-hidden="true">' + p + '</svg>';
 const I_SHARE = SV('<path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6"/>');
-const I_GLOBE = SV('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>');
+const I_GLOBE = SV('<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><path d="M3 12h18"/>');
 const I_MOON = SV('<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>');
 const I_SUN = SV('<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>');
 const I_X = SV('<path d="M6 6l12 12M18 6L6 18"/>');
@@ -325,7 +340,7 @@ const I_CHECK = SV('<path d="M5 12.5l4.5 4.5L19 7.5"/>');
 const ICO = {
   speaker: '<path d="M4 10v4h4l5 4V6L8 10zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>',
   bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><path d="M3 12h18"/>',
   flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   x: '<path d="M6 6l12 12M18 6L6 18"/>',
@@ -364,7 +379,8 @@ const MICON = {
   ff: '<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>'
 };
 const micon = m => `<span class="mi c${CORE.modules.indexOf(m) % 6}">${SV(MICON[m.id] || MICON.v2)}</span>`;
-let infoOpen = false, moreOpen = false;
+let infoOpen = false, moreOpen = false, shareOpen = false;
+const QR_SVG = '<svg class="qr" viewBox="-3 -3 39 39" role="img" aria-label="QR code: https://t-kintaert.github.io/deutsch-trainer-wien/" shape-rendering="crispEdges"><rect x="-3" y="-3" width="39" height="39" fill="#fff"/><path fill="#000" d="M0 0h7v1h-7zM11 0h3v1h-3zM16 0h2v1h-2zM19 0h2v1h-2zM22 0h2v1h-2zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h2v1h-2zM13 1h5v1h-5zM20 1h3v1h-3zM24 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h6v1h-6zM16 2h3v1h-3zM21 2h3v1h-3zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h4v1h-4zM14 3h1v1h-1zM16 3h1v1h-1zM19 3h2v1h-2zM22 3h3v1h-3zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h1v1h-1zM12 4h1v1h-1zM15 4h1v1h-1zM18 4h1v1h-1zM21 4h4v1h-4zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM10 5h1v1h-1zM14 5h3v1h-3zM20 5h3v1h-3zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h2v1h-2zM15 7h1v1h-1zM18 7h1v1h-1zM21 7h1v1h-1zM23 7h2v1h-2zM0 8h1v1h-1zM2 8h5v1h-5zM12 8h4v1h-4zM17 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h5v1h-5zM0 9h2v1h-2zM7 9h2v1h-2zM10 9h1v1h-1zM12 9h1v1h-1zM18 9h4v1h-4zM23 9h1v1h-1zM26 9h2v1h-2zM29 9h4v1h-4zM0 10h2v1h-2zM4 10h3v1h-3zM12 10h1v1h-1zM15 10h2v1h-2zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM28 10h1v1h-1zM30 10h2v1h-2zM5 11h1v1h-1zM9 11h1v1h-1zM12 11h1v1h-1zM14 11h1v1h-1zM16 11h1v1h-1zM19 11h4v1h-4zM24 11h1v1h-1zM26 11h1v1h-1zM28 11h3v1h-3zM0 12h3v1h-3zM4 12h1v1h-1zM6 12h2v1h-2zM9 12h1v1h-1zM12 12h1v1h-1zM18 12h1v1h-1zM22 12h2v1h-2zM25 12h1v1h-1zM28 12h2v1h-2zM31 12h1v1h-1zM0 13h3v1h-3zM4 13h1v1h-1zM9 13h1v1h-1zM11 13h7v1h-7zM20 13h2v1h-2zM23 13h1v1h-1zM26 13h1v1h-1zM30 13h3v1h-3zM0 14h1v1h-1zM2 14h1v1h-1zM4 14h5v1h-5zM11 14h3v1h-3zM18 14h2v1h-2zM21 14h1v1h-1zM25 14h3v1h-3zM29 14h1v1h-1zM31 14h1v1h-1zM0 15h1v1h-1zM8 15h5v1h-5zM14 15h1v1h-1zM16 15h1v1h-1zM18 15h5v1h-5zM25 15h2v1h-2zM29 15h2v1h-2zM2 16h2v1h-2zM5 16h2v1h-2zM8 16h1v1h-1zM11 16h2v1h-2zM17 16h1v1h-1zM19 16h1v1h-1zM22 16h1v1h-1zM24 16h2v1h-2zM27 16h2v1h-2zM32 16h1v1h-1zM8 17h1v1h-1zM10 17h3v1h-3zM14 17h1v1h-1zM16 17h2v1h-2zM19 17h2v1h-2zM23 17h1v1h-1zM25 17h3v1h-3zM29 17h4v1h-4zM0 18h1v1h-1zM2 18h3v1h-3zM6 18h2v1h-2zM10 18h1v1h-1zM13 18h5v1h-5zM21 18h1v1h-1zM27 18h2v1h-2zM30 18h2v1h-2zM0 19h3v1h-3zM4 19h2v1h-2zM7 19h1v1h-1zM10 19h3v1h-3zM14 19h2v1h-2zM17 19h9v1h-9zM27 19h5v1h-5zM2 20h1v1h-1zM5 20h3v1h-3zM9 20h1v1h-1zM12 20h1v1h-1zM16 20h1v1h-1zM19 20h1v1h-1zM22 20h4v1h-4zM28 20h2v1h-2zM31 20h1v1h-1zM0 21h1v1h-1zM4 21h2v1h-2zM7 21h2v1h-2zM11 21h1v1h-1zM13 21h3v1h-3zM18 21h1v1h-1zM21 21h1v1h-1zM23 21h1v1h-1zM26 21h1v1h-1zM30 21h1v1h-1zM32 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM5 22h3v1h-3zM9 22h1v1h-1zM13 22h4v1h-4zM20 22h3v1h-3zM24 22h2v1h-2zM29 22h1v1h-1zM31 22h1v1h-1zM0 23h1v1h-1zM2 23h2v1h-2zM7 23h1v1h-1zM9 23h2v1h-2zM14 23h2v1h-2zM19 23h5v1h-5zM28 23h3v1h-3zM32 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM4 24h4v1h-4zM9 24h2v1h-2zM13 24h1v1h-1zM15 24h1v1h-1zM17 24h1v1h-1zM19 24h1v1h-1zM22 24h7v1h-7zM8 25h1v1h-1zM10 25h3v1h-3zM14 25h1v1h-1zM16 25h1v1h-1zM18 25h2v1h-2zM21 25h2v1h-2zM24 25h1v1h-1zM28 25h1v1h-1zM30 25h3v1h-3zM0 26h7v1h-7zM9 26h1v1h-1zM11 26h3v1h-3zM15 26h1v1h-1zM18 26h1v1h-1zM21 26h4v1h-4zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h2v1h-2zM14 27h1v1h-1zM16 27h1v1h-1zM20 27h5v1h-5zM28 27h4v1h-4zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h2v1h-2zM12 28h2v1h-2zM18 28h1v1h-1zM22 28h1v1h-1zM24 28h6v1h-6zM31 28h1v1h-1zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h2v1h-2zM14 29h3v1h-3zM19 29h1v1h-1zM21 29h1v1h-1zM23 29h2v1h-2zM28 29h1v1h-1zM31 29h2v1h-2zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h5v1h-5zM14 30h1v1h-1zM17 30h2v1h-2zM23 30h1v1h-1zM26 30h2v1h-2zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h1v1h-1zM13 31h1v1h-1zM16 31h1v1h-1zM18 31h4v1h-4zM26 31h1v1h-1zM28 31h1v1h-1zM30 31h1v1h-1zM0 32h7v1h-7zM8 32h1v1h-1zM10 32h2v1h-2zM17 32h4v1h-4zM22 32h4v1h-4zM27 32h1v1h-1zM31 32h1v1h-1z"/></svg>';
 const fsOk = () => !!(document.fullscreenEnabled && document.documentElement.requestFullscreen);
 const fsIcon = () => document.fullscreenElement ? FS_OFF : FS_ON;
 function toggleFull() {
@@ -440,6 +456,15 @@ function vHome() {
   ${rest.length ? `<div class="linecard l2"><button class="lhead" data-more="1" aria-expanded="${moreOpen}"><span class="lbadge">2</span><h2>${fmt(t("allMods"))} (${rest.length})</h2><span class="chev">${moreOpen ? "▲" : "▼"}</span></button>
   ${moreOpen ? `<div class="l2row"><button class="btn2" data-mixed="all">${fmt(t("mixedAll"))}</button></div><div class="stations">${rest.map(modCard).join("")}</div>` : ""}</div>` : ""}
   ${L.intro && native() ? `<p><button class="link" data-go="intro">${fmt(L.intro.h)}</button></p>` : ""}${l2hint()}`;
+}
+/* Teilen-Fenster: QR-Code zum Abfotografieren, Link teilen oder kopieren */
+function shareModal() {
+  return `<div class="ovl"><div class="modal center" role="dialog" aria-modal="true" aria-label="${esc(t("share"))}">
+  <div class="mhead"><h2>${fmt(t("share"))}</h2><button class="ib" data-shareclose="1" aria-label="${esc(t("back"))}" title="${esc(t("back"))}">${I_X}</button></div>
+  <div class="qrbox">${QR_SVG}</div>
+  <p class="small mute">${fmt(t("qrHint"))}</p>
+  <p class="small" dir="ltr" style="word-break:break-all"><b>${esc(APP_URL.replace(/^https:\/\//, ""))}</b></p>
+  <div class="mfoot" style="justify-content:center">${navigator.share ? `<button class="btn" data-sharenow="1">${I_SHARE} ${fmt(t("share"))}</button>` : ""}<button class="btn2" data-copylink="1">${fmt(t("copyLink"))}</button></div></div></div>`;
 }
 /* Info-Fenster: allgemeine Angaben, Beta-Hinweis, Datenschutz, Fortschritt löschen */
 function infoModal() {
@@ -583,10 +608,9 @@ async function chooseLang(id) {
   return true;
 }
 function share() {
-  const url = location.href.split("#")[0], text = t("shareText");
+  const url = APP_URL || location.href.split("#")[0], text = t("shareText");
   if (navigator.share) { navigator.share({ title: "Deutsch-Trainer Wien", text, url }).catch(() => {}); }
   else if (navigator.clipboard) { navigator.clipboard.writeText(text + " " + url).then(() => toast(t("copied"))).catch(() => {}); }
-  stat("teilen");
 }
 
 /* ---------- Ereignisse ---------- */
@@ -598,14 +622,17 @@ app.addEventListener("touchstart", ev => {
 }, { passive: true });
 ["touchend", "touchmove", "touchcancel"].forEach(n => app.addEventListener(n, () => clearTimeout(pressT), { passive: true }));
 app.addEventListener("contextmenu", ev => { if (ev.target.closest("[data-tip]")) ev.preventDefault(); });
-document.addEventListener("keydown", ev => { if (ev.key === "Escape" && infoOpen) { infoOpen = false; render(); } });
+document.addEventListener("keydown", ev => { if (ev.key === "Escape" && (infoOpen || shareOpen)) { infoOpen = shareOpen = false; render(); } });
 app.addEventListener("click", async ev => {
-  if (infoOpen && ev.target.classList && ev.target.classList.contains("ovl")) { infoOpen = false; return render(); }
+  if ((infoOpen || shareOpen) && ev.target.classList && ev.target.classList.contains("ovl")) { infoOpen = shareOpen = false; return render(); }
   const b = ev.target.closest("button"); if (!b) return;
   if (pressed && b.dataset.tip) { pressed = false; return; }
   const d = b.dataset;
   if (d.say !== undefined) return speak(d.say);
-  if (d.share) return share();
+  if (d.share) { shareOpen = true; stat("teilen"); return render(); }
+  if (d.sharenow) return share();
+  if (d.copylink) { if (navigator.clipboard) navigator.clipboard.writeText(APP_URL).then(() => toast(t("copied"))).catch(() => {}); return; }
+  if (d.shareclose) { shareOpen = false; return render(); }
   if (d.full) return toggleFull();
   if (d.report !== undefined) return feedback(d.report);
   if (d.dark) { S.dark = !S.dark; save(); return render(); }
